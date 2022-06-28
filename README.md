@@ -3,9 +3,9 @@ Why does gas station prices for 95 oil is so high in Poland?
 
 
 ``` r
-cena_paliwa <- read.csv("/Users/mr.fox/Desktop/Cena 95 w Polsce.csv", sep = ";", dec = ",") 
-USD_PLN <- read_csv("/Users/mr.fox/Desktop/USD_PLN Historical.csv")
-BRENT <- read_csv("/Users/mr.fox/Desktop/Brent Oil Futures Historical.csv")
+cena_paliwa <- read.csv(".../Cena 95 w Polsce.csv", sep = ";", dec = ",") 
+USD_PLN <- read_csv(".../USD_PLN Historical.csv")
+BRENT <- read_csv(".../Brent Oil Futures Historical.csv")
 
 USD_PLN <- USD_PLN %>% select(Date, Price) %>% mutate(Date = mdy(Date), USD_PLN = Price) %>% select(-Price)
 BRENT <- BRENT %>% select(Date, Price) %>% mutate(Date = mdy(Date), BRENT = Price) %>% select(-Price)
