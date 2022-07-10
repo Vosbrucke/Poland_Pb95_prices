@@ -75,11 +75,13 @@ new_df_1 <- new_df %>%
 ```
 
 
-## Wizualizacja danych. Przyznam szczerze, że te obliczenia nie podobają mi się do końca. Trzeba tam kilka rzeczy pozmieniać. Teraz jak patrzę to też nie pamiętam czemu niektóre z kroków robiłem. Dobrze byłoby prześledzić jak się zmieniała cena hurtowa vs cena detaliczna. Czy procentowo nie zwiększał się udział kosztów niezwiązanych z samą ceną baryłki tzn. opłata akcyzowa, paliwowa, emisyjna itp. Tutaj jest rozdzielenie ceny paliwa wg danych kategorii składników ceny: https://www.e-petrol.pl/notowania/pomocne-informacje/podzial-skladnikow-cen-paliw
+## Wizualizacja danych. 
 
-### Poza tym należałoby stwierdzić co odpowiada za wzrost ceny hurtowej za paliwo. 
+Przyznam szczerze, że te obliczenia nie podobają mi się do końca. Trzeba tam kilka rzeczy pozmieniać. Teraz jak patrzę to też nie pamiętam czemu niektóre z kroków robiłem. Dobrze byłoby prześledzić jak się zmieniała cena hurtowa vs cena detaliczna. Czy procentowo nie zwiększał się udział kosztów niezwiązanych z samą ceną baryłki tzn. opłata akcyzowa, paliwowa, emisyjna itp. Tutaj jest rozdzielenie ceny paliwa wg danych kategorii składników ceny: https://www.e-petrol.pl/notowania/pomocne-informacje/podzial-skladnikow-cen-paliw
 
-### PS. Ja póki co patrzyłem na ceny Pb95. Nie sprawdzałem ON, ponieważ uznałem, że powinien się ruszać podobnie.
+Poza tym należałoby stwierdzić co odpowiada za wzrost ceny hurtowej za paliwo. 
+
+PS. Ja póki co patrzyłem na ceny Pb95. Nie sprawdzałem ON, ponieważ uznałem, że powinien się ruszać podobnie.
 
 ``` {r}
 ##### PROTIP: Usuwanie / dodawanie komentarzy poprzez zaznaczenie linijki / linijek kodu i wykorzystanie skrótu CTRL + SHIFT + C
