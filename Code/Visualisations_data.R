@@ -4,6 +4,7 @@ library(tidyverse)
 library(magrittr)
 library(lubridate)
 library(patchwork)
+library(ggh4x)
 
 # Wczytaj dane
 data <-read_csv('/Processed_data/full_data.csv')
@@ -126,6 +127,7 @@ p1 <- data %>%
   labs(x = NULL, y = NULL) +
   ggtitle("Ropa brent w PLN w latach 2005-2022") +
   scale_y_continuous(breaks = seq(0,600, 150), limits = c(0,650), expand = c(0,0)) +
+  scale_x_date(date_labels = "%Y", minor_breaks = seq.Date(as.Date("2005-01-01"), as.Date(now() + years(3)), by = "year"), guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -143,6 +145,7 @@ p2 <- data %>%
   labs(x = NULL, y = NULL) +
   ggtitle("Ropa brent w PLN w latach 2005-2022") +
   scale_y_continuous(breaks = seq(0,600, 150), limits = c(0,650), expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2005, 2025, 1), guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -168,6 +171,7 @@ data %>%
   labs(x = NULL, y = NULL) +
   ggtitle("Rozstęp i <span style='color:#E4B80E;'>mediana</span> ropy brent w PLN w latach 2005-2022") +
   scale_y_continuous(breaks = seq(0,600, 150), limits = c(0,650), expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2005, 2025, 1), guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -190,8 +194,9 @@ data %>%
   geom_line(color = PLN_color) +
   geom_point(shape = 21, size = 2, stroke = 1, fill = "white", color = PLN_color) +
   labs(x = NULL, y = NULL) +
-  ggtitle("Zakres ropy brent w PLN w latach 2005-2022") +
+  ggtitle("Zakres notowań ropy brent w PLN w latach 2005-2022") +
   scale_y_continuous(breaks = seq(0,300, 50), limits = c(0,260), expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2005, 2025, 1), guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -203,7 +208,7 @@ data %>%
 
 ggsave("Plots/Rozstęp_w_PLN.png", dpi = 900, width = 20, height = 10, unit = "cm")
 
-
+plotly::ggplotly(p1)
 ## Only brent USD data
 # Line plot
 p1 <- data %>%
@@ -213,6 +218,7 @@ p1 <- data %>%
   labs(x = NULL, y = NULL) +
   ggtitle("Ropa brent w USD w latach 2005-2022") +
   scale_y_continuous(breaks = seq(0,150, 25), limits = c(0,165), expand = c(0,0)) +
+  scale_x_date(date_labels = "%Y", minor_breaks = seq.Date(as.Date("2005-01-01"), as.Date(now() + years(3)), by = "year"), guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -230,6 +236,7 @@ p2 <- data %>%
   labs(x = NULL, y = NULL) +
   ggtitle("Ropa brent USD w latach 2005-2022") +
   scale_y_continuous(breaks = seq(0,150, 25), limits = c(0,165), expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2005, 2025, 1), guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -254,6 +261,7 @@ data %>%
   labs(x = NULL, y = NULL) +
   ggtitle("Rozstęp i <span style='color:#9EBE91;'>mediana</span> ropy brent w USD w latach 2005-2022") +
   scale_y_continuous(breaks = seq(0,150, 25), limits = c(0,149), expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2005, 2025, 1), guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -276,8 +284,9 @@ data %>%
     geom_line(color = USD_color) +
     geom_point(shape = 21, size = 2, stroke = 1, fill = "white", color = USD_color) +
     labs(x = NULL, y = NULL) +
-    ggtitle("Zakres ropy brent w USD w latach 2005-2022") +
+    ggtitle("Zakres notowań ropy brent w USD w latach 2005-2022") +
     scale_y_continuous(breaks = seq(0,110, 20), limits = c(0,110), expand = c(0,0)) +
+    scale_x_continuous(minor_breaks = seq(2005, 2025, 1), guide = "axis_minor") +
     theme_classic() +
     theme(axis.line.y = element_blank(),
           axis.ticks.y = element_blank(),
@@ -304,7 +313,9 @@ p <- data %>%
 # Making a plot more pretty
 p <- p +
   scale_y_continuous(breaks = seq(0,400, 100), limits = c(0,450), expand = c(0,0)) +
-  scale_x_date(limits = c(as.Date(min(data$Date) - days(200)), as.Date(max(data$Date) + days(600)))) +
+  scale_x_date(limits = c(as.Date(min(data$Date) - days(350)), as.Date(max(data$Date) + days(800))), expand = c(0,0),
+               breaks = seq.Date(as.Date("2005-01-01"), as.Date("2020-01-01"), "5 years"),
+               date_labels = "%Y", minor_breaks = seq.Date(as.Date("2005-01-01"), as.Date(now() + years(4)), by = "year"), guide = "axis_minor") +
   scale_color_manual(name = NULL, values = c(PLN_color, USD_color)) +
   theme_classic() +
   theme(axis.line.y = element_blank(),
