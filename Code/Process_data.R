@@ -46,7 +46,7 @@ brent <- gdata::read.xls("http://www.eia.gov/dnav/pet/hist_xls/RBRTEd.xls", shee
   arrange(desc(Date)) 
 
 # Join Pb 95 prices with Brent Oil and USD/PLN
-data <- prices_PB_95 %>% inner_join(brent,  by = c("year", "week")) %>% inner_join(usdpln, by = c("year", "week")) %>% mutate(brentPLN = brent * usdpln) %>% select(-c(brent, usdpln, start, end))
+data <- prices_PB_95 %>% inner_join(brent,  by = c("year", "week")) %>% inner_join(usdpln, by = c("year", "week")) %>% mutate(brentPLN = brent * usdpln) %>% select(-c(usdpln, start, end))
 
 # Read wholesale prices for Pb 95
 ceny_hurtowe <- readLines("https://www.lotos.pl/145/type,oil_95/dla_biznesu/hurtowe_ceny_paliw/archiwum_cen_paliw")
@@ -111,4 +111,4 @@ data <- data %>% bind_cols(shares) %>% mutate(emission_tax_share = emission_tax 
 data <- data %>% select(order(colnames(data)))
 
 # Write csv
-write_csv(data, "Oil/Processed_data/full_data.csv")
+write_csv(data, "/Polish_Gas_station_prices/Processed_data/full_data.csv")
