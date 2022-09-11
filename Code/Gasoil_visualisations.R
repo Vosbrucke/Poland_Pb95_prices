@@ -584,7 +584,7 @@ fuel_price_EU %>%
         axis.ticks = element_line(color = "black"),
         legend.position = "none")
 
-ggsave("Plots/Pb95 price among EU members.png", dpi = 900, width = 20, height = 20, unit = "cm")
+ggsave("Plots/Pb95 price among EU members.png", dpi = 900, width = 22, height = 15, unit = "cm")
 
 
  ## Increase in Pb95 fuel prices among EU members

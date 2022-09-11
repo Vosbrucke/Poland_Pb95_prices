@@ -134,7 +134,7 @@ inflation <- joined_inflation %>%
 
 univariate_map_eu(data = inflation, subtitle = "", title = "Wpływ wzrostu cen energii i żywności r/r na wielkość inflacji HICP, lipiec 2022 r.", legend = "Udział w %", caption = "Źródło: Eurostat")
 
-ggsave("Share of YoY increase in energy and food prices on HICP inflation.png", dpi = 900, height = 15, width = 22, units = "cm")
+ggsave("Plots/Share of YoY increase in energy and food prices on HICP inflation.png", dpi = 900, height = 15, width = 22, units = "cm")
 
 
 ## Bivariate maps
