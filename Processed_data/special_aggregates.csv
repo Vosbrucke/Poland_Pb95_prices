@@ -1,0 +1,38 @@
+special_aggregates_u,special_aggregates_l
+GD,Goods (overall index excluding services)
+IGD,Industrial goods
+IGD_NNRG,Non-energy industrial goods
+IGD_NNRG_D,"Non-energy industrial goods, durables only"
+IGD_NNRG_SD,"Non-energy industrial goods, semi-durables only"
+IGD_NNRG_ND,"Non-energy industrial goods, non-durables only"
+NRG,Energy
+FOOD,Food including alcohol and tobacco
+FOOD_NP,Unprocessed food
+FOOD_P,Processed food including alcohol and tobacco
+FOOD_P_X_ALC_TBC,Processed food excluding alcohol and tobacco
+SERV,Services (overall index excluding goods)
+SERV_COM,Services related to communication
+SERV_HOUS,Services related to housing
+SERV_REC,"Services related to recreation, including repairs and personal care"
+SERV_REC_X_HOA,"Services related to recreation and personal care, excluding package holidays and accomodation"
+SERV_REC_HOA,Services related to package holidays and accommodation
+SERV_TRA,Services related to transport
+SERV_MSC,Services miscellaneous
+TOT_X_NRG,Overall index excluding energy
+TOT_X_NRG_FOOD,"Overall index excluding energy, food, alcohol and tobacco"
+TOT_X_NRG_FOOD_NP,Overall index excluding energy and unprocessed food
+FOOD_S,Seasonal food
+TOT_X_FOOD_S,Overall index excluding seasonal food
+TOT_X_NRG_FOOD_S,Overall index excluding energy and seasonal food
+NRG_FOOD_S,Energy and seasonal food
+FUEL,Liquid fuels and fuels and lubricants for personal transport equipment
+TOT_X_FUEL,Overall index excluding liquid fuels and lubricants for personal transport equipment
+TOT_X_ALC_TBC,Overall index excluding alcohol and tabaco
+TOT_X_TBC,Overall index excluding tabaco
+NRG_FOOD_ND,Energy and unprocessed food
+TOT_X_HOUS,"Overall index excluding housing, water, electricity gas and other fuels"
+ELC_GAS,"Electricity, gas, solid fuels and heat energy"
+EDUC_HLTH_SPR,"Education, health and social protection"
+TOT_X_EDUC_HLTH_SPR,"Overall index excluding Education, health and social protection"
+FROOPP,Frequent out-of-pocket purchases
+TOT_X_FROOPP,Overall index excluding frequent out-of-pocket purchases

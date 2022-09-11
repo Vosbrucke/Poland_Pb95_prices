@@ -1,0 +1,250 @@
+﻿name;name_pl;alpha-2;country-code
+Afghanistan;Afganistan;AF;4
+_land Islands;Wyspy Alandzkie;AX;248
+Albania;Albania;AL;8
+Algeria;Algieria;DZ;12
+American Samoa;Samoa Amerykańskie;AS;16
+Andorra;Andora;AD;20
+Angola;Angola;AO;24
+Anguilla;Anguilla;AI;660
+Antarctica;Antarktyda;AQ;10
+Antigua and Barbuda;Antigua i Barbuda;AG;28
+Argentina;Argentyna;AR;32
+Armenia;Armenia;AM;51
+Aruba;Aruba;AW;533
+Australia;Australia;AU;36
+Austria;Austria;AT;40
+Azerbaijan;Azerbejdżan;AZ;31
+Bahamas;Bahamy;BS;44
+Bahrain;Bahrajn;BH;48
+Bangladesh;Bangladesz;BD;50
+Barbados;Barbados;BB;52
+Belarus;Białoruś;BY;112
+Belgium;Belgia;BE;56
+Belize;Belize;BZ;84
+Benin;Benin;BJ;204
+Bermuda;Bermudy;BM;60
+Bhutan;Bhutan;BT;64
+Bolivia (Plurinational State of);Boliwia (wielonarodowe państwo);BO;68
+Bonaire;Bonaire;BQ;535
+Bosnia and Herzegovina;Bośnia i Hercegowina;BA;70
+Botswana;Botswana;BW;72
+Bouvet Island;Wyspa Bouveta;BV;74
+Brazil;Brazylia;BR;76
+British Indian Ocean Territory;Brytyjskie Terytorium Oceanu Indyjskiego;IO;86
+Brunei Darussalam;Brunei Darussalam;BN;96
+Bulgaria;Bułgaria;BG;100
+Burkina Faso;Burkina Faso;BF;854
+Burundi;Burundi;BI;108
+Cabo Verde;Cabo Verde;CV;132
+Cambodia;Kambodża;KH;116
+Cameroon;Kamerun;CM;120
+Canada;Kanada;CA;124
+Cayman Islands;Kajmany;KY;136
+Central African Republic;Republika Środkowoafrykańska;CF;140
+Chad;Czad;TD;148
+Chile;Chile;CL;152
+China;Chiny;CN;156
+Christmas Island;Wyspa Bożego Narodzenia;CX;162
+Cocos (Keeling) Islands;Wyspy Kokosowe (Keelinga);CC;166
+Colombia;Kolumbia;CO;170
+Comoros;Komory;KM;174
+Congo;Kongo;CG;178
+Congo;Kongo;CD;180
+Cook Islands;Wyspy Cooka;CK;184
+Costa Rica;Kostaryka;CR;188
+Côte d'Ivoire;Wybrzeże Kości Słoniowej;CI;384
+Croatia;Chorwacja;HR;191
+Cuba;Kuba;CU;192
+Cura_ao;Cura_ao;CW;531
+Cyprus;Cypr;CY;196
+Czechia;Czechy;CZ;203
+Denmark;Dania;DK;208
+Djibouti;Dżibuti;DJ;262
+Dominica;Dominika;DM;212
+Dominican Republic;Republika Dominikany;DO;214
+Ecuador;Ekwador;EC;218
+Egypt;Egipt;EG;818
+El Salvador;Salwador;SV;222
+Equatorial Guinea;Gwinea Równikowa;GQ;226
+Eritrea;Erytrea;ER;232
+Estonia;Estonia;EE;233
+Eswatini;Eswatini;SZ;748
+Ethiopia;Etiopia;ET;231
+Falkland Islands (Malvinas);Falklandy (Malwiny);FK;238
+Faroe Islands;Wyspy Owcze;FO;234
+Fiji;Fidżi;FJ;242
+Finland;Finlandia;FI;246
+France;Francja;FR;250
+French Guiana;Gujana Francuska;GF;254
+French Polynesia;Polinezja Francuska;PF;258
+French Southern Territories;Francuskie Terytoria Południowe;TF;260
+Gabon;Gabon;GA;266
+Gambia;Gambia;GM;270
+Georgia;Gruzja;GE;268
+Germany;Niemcy;DE;276
+Ghana;Ghana;GH;288
+Gibraltar;Gibraltar;GI;292
+Greece;Grecja;GR;300
+Greenland;Grenlandia;GL;304
+Grenada;Grenada;GD;308
+Guadeloupe;Gwadelupa;GP;312
+Guam;Guam;GU;316
+Guatemala;Gwatemala;GT;320
+Guernsey;Guernsey;GG;831
+Guinea;Gwinea;GN;324
+Guinea-Bissau;Gwinea Bissau;GW;624
+Guyana;Gujana;GY;328
+Haiti;Haiti;HT;332
+Heard Island and McDonald Islands;Wyspy Heard i Wyspy McDonalda;HM;334
+Holy See;Stolica Apostolska;VA;336
+Honduras;Honduras;HN;340
+Hong Kong;Hongkong;HK;344
+Hungary;Węgry;HU;348
+Iceland;Islandia;IS;352
+India;Indie;IN;356
+Indonesia;Indonezja;ID;360
+Iran (Islamic Republic of);Iran (Islamska Republika);IR;364
+Iraq;Irak;IQ;368
+Ireland;Irlandia;IE;372
+Isle of Man;Wyspa Man;IM;833
+Israel;Izrael;IL;376
+Italy;Włochy;IT;380
+Jamaica;Jamajka;JM;388
+Japan;Japonia;JP;392
+Jersey;Jersey;JE;832
+Jordan;Jordania;JO;400
+Kazakhstan;Kazachstan;KZ;398
+Kenya;Kenia;KE;404
+Kiribati;Kiribati;KI;296
+Korea (Democratic People's Republic of);Korea (Republika Ludowo-Demokratyczna);KP;408
+Korea;Korea;KR;410
+Kuwait;Kuwejt;KW;414
+Kyrgyzstan;Kirgistan;KG;417
+Lao People's Democratic Republic;Laotańska Republika Ludowo-Demokratyczna;LA;418
+Latvia;Łotwa;LV;428
+Lebanon;Liban;LB;422
+Lesotho;Lesoto;LS;426
+Liberia;Liberia;LR;430
+Libya;Libia;LY;434
+Liechtenstein;Liechtenstein;LI;438
+Lithuania;Litwa;LT;440
+Luxembourg;Luksemburg;LU;442
+Macao;Makao;MO;446
+Madagascar;Madagaskar;MG;450
+Malawi;Malawi;MW;454
+Malaysia;Malezja;MY;458
+Maldives;Malediwy;MV;462
+Mali;Mali;ML;466
+Malta;Malta;MT;470
+Marshall Islands;Wyspy Marshalla;MH;584
+Martinique;Martynika;MQ;474
+Mauritania;Mauretania;MR;478
+Mauritius;Mauritius;MU;480
+Mayotte;Majotta;YT;175
+Mexico;Meksyk;MX;484
+Micronesia (Federated States of);Mikronezja (Sfederowane Stany);FM;583
+Moldova;Mołdawia;MD;498
+Monaco;Monako;MC;492
+Mongolia;Mongolia;MN;496
+Montenegro;Czarnogóra;ME;499
+Montserrat;Montserrat;MS;500
+Morocco;Maroko;MA;504
+Mozambique;Mozambik;MZ;508
+Myanmar;Myanmar;MM;104
+Namibia;Namibia;NA;516
+Nauru;Nauru;NR;520
+Nepal;Nepal;NP;524
+Netherlands;Holandia;NL;528
+New Caledonia;Nowa Kaledonia;NC;540
+New Zealand;Nowa Zelandia;NZ;554
+Nicaragua;Nikaragua;NI;558
+Niger;Niger;NE;562
+Nigeria;Nigeria;NG;566
+Niue;Niue;NU;570
+Norfolk Island;Wyspa Norfolk;NF;574
+North Macedonia;Macedonia Północna;MK;807
+Northern Mariana Islands;Mariany Północne;MP;580
+Norway;Norwegia;NO;578
+Oman;Oman;OM;512
+Pakistan;Pakistan;PK;586
+Palau;Palau;PW;585
+Palestine;Palestyna;PS;275
+Panama;Panama;PA;591
+Papua New Guinea;Papua Nowa Gwinea;PG;598
+Paraguay;Paragwaj;PY;600
+Peru;Peru;PE;604
+Philippines;Filipiny;PH;608
+Pitcairn;Pitcairn;PN;612
+Poland;Polska;PL;616
+Portugal;Portugalia;PT;620
+Puerto Rico;Portoryko;PR;630
+Qatar;Katar;QA;634
+Réunion;Réunion;RE;638
+Romania;Rumunia;RO;642
+Russian Federation;Federacja Rosyjska;RU;643
+Rwanda;Rwanda;RW;646
+Saint Barth√©lemy;Saint Barthélemy;BL;652
+Saint Helena;Święta Helena;SH;654
+Saint Kitts and Nevis;Saint Kitts i Nevis;KN;659
+Saint Lucia;święta Lucia;LC;662
+Saint Martin (French part);Święty Marcin (część francuska);MF;663
+Saint Pierre and Miquelon;Saint-Pierre i Miquelon;PM;666
+Saint Vincent and the Grenadines;Saint Vincent i Grenadyny;VC;670
+Samoa;Samoa;WS;882
+San Marino;San Marino;SM;674
+Sao Tome and Principe;Wyspy Świętego Tomasza i Książęca;ST;678
+Saudi Arabia;Arabia Saudyjska;SA;682
+Senegal;Senegal;SN;686
+Serbia;Serbia;RS;688
+Seychelles;Seszele;SC;690
+Sierra Leone;Sierra Leone;SL;694
+Singapore;Singapur;SG;702
+Sint Maarten (Dutch part);Sint Maarten (część holenderska);SX;534
+Slovakia;Słowacja;SK;703
+Slovenia;Słowenia;SI;705
+Solomon Islands;Wyspy Salomona;SB;90
+Somalia;Somali;SO;706
+South Africa;Afryka Południowa;ZA;710
+South Georgia and the South Sandwich Islands;Georgia Południowa i Sandwich Południowy;GS;239
+South Sudan;Południowy Sudan;SS;728
+Spain;Hiszpania;ES;724
+Sri Lanka;Sri Lanka;LK;144
+Sudan;Sudan;SD;729
+Suriname;Surinam;SR;740
+Svalbard and Jan Mayen;Svalbard i Jan Mayen;SJ;744
+Sweden;Szwecja;SE;752
+Switzerland;Szwajcaria;CH;756
+Syrian Arab Republic;Republika Syryjsko-Arabska;SY;760
+Taiwan;Tajwan;TW;158
+Tajikistan;Tadżykistan;TJ;762
+Tanzania;Tanzania;TZ;834
+Thailand;Tajlandia;TH;764
+Timor-Leste;Timor Wschodni;TL;626
+Togo;Togo;TG;768
+Tokelau;Tokelau;TK;772
+Tonga;Tonga;TO;776
+Trinidad and Tobago;Trynidad i Tobago;TT;780
+Tunisia;Tunezja;TN;788
+Turkey;Turcja;TR;792
+Turkmenistan;Turkmenia;TM;795
+Turks and Caicos Islands;Wyspy Turks i Caicos;TC;796
+Tuvalu;Tuvalu;TV;798
+Uganda;Uganda;UG;800
+Ukraine;Ukraina;UA;804
+United Arab Emirates;Zjednoczone Emiraty Arabskie;AE;784
+United Kingdom of Great Britain and Northern Ireland;Zjednoczone Królestwo Wielkiej Brytanii i Irlandii Północnej;GB;826
+United States of America;Stany Zjednoczone Ameryki;US;840
+United States Minor Outlying Islands;Stany Zjednoczone Dalekie Wyspy Mniejsze;UM;581
+Uruguay;Urugwaj;UY;858
+Uzbekistan;Uzbekistan;UZ;860
+Vanuatu;Vanuatu;VU;548
+Venezuela (Bolivarian Republic of);Wenezuela (Republika Boliwariańska);VE;862
+Viet Nam;Wietnam;VN;704
+Virgin Islands (British);Wyspy Dziewicze (Brytyjskie);VG;92
+Virgin Islands (U.S.);Wyspy Dziewicze (USA);VI;850
+Wallis and Futuna;Wallis i Futuna;WF;876
+Western Sahara;Sahara Zachodnia;EH;732
+Yemen;Jemen;YE;887
+Zambia;Zambia;ZM;894
+Zimbabwe;Zimbabwe;ZW;716
