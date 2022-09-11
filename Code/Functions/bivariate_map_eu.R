@@ -141,6 +141,7 @@ bivariate_map_eu <- function(data_x = data_x, data_y = data_y, title = "", subti
         plot.title = element_text(size = 15, hjust = 0.5,
                                   color = "#494E4F"),
         plot.title.position = "plot",
+        plot.caption.position = "plot",
         plot.subtitle = element_text(size = 10, hjust = 0.5,
                                      color = "#494E4F",
                                      margin = margin(b = -0.1,
