@@ -29,25 +29,28 @@
 ![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Brent%20in%20PLN.png "Boxplot of Brent oil prices in PLN")
 ![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Brent%20USD.png "Boxplot of Brent oil prices in USD")
 
+![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Pb95%20price%20among%20EU%20members.png
+ "Pb95 price among EU members")
+ 
+ ![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Increase%20in%20Pb95%20fuel%20prices%20among%20EU%20members.png "Increase in Pb95 fuel prices")
 
-![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Annual%20change%20in%20gasoline%20spending%20in%20Europe.png "Annual change in gasoline spending in Europe")
 
-![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Gasoil%20prices%20in%20Europe%20on%202022-08-29.png "Gasoil prices in Europe in 2022")
+![map](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Annual%20change%20in%20gasoline%20spending%20in%20Europe.png "Annual change in gasoline spending in Europe")
 
-![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Increase%20in%20Pb95%20fuel%20prices%20among%20EU%20members.png "Increase in Pb95 fuel prices")
+![map](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Gasoil%20prices%20in%20Europe%20on%202022-08-29.png "Gasoil prices in Europe in 2022")
 
-![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Annual%20change%20in%20gasoline%20spending%20in%20Europe.png "Annual change in gasoline spending in Europe")
+![map](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Annual%20change%20in%20gasoline%20spending%20in%20Europe.png "Annual change in gasoline spending in Europe")
 
-![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Inflation%20and%20share%20of%20YoY%20increase%20in%20energy%20and%20food%20prices%20in%20HICP%20inflation%20in%20Europe.png
+![map](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Inflation%20and%20share%20of%20YoY%20increase%20in%20energy%20and%20food%20prices%20in%20HICP%20inflation%20in%20Europe.png
  "Inflation and share of YoY increase in energy and food prices in HICP inflation in Europe")
 
 
 # Inflacja
+
+![map](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Inflation%20and%20purchasing%20power%20adjusted%20GDP%20per%20capita%20in%20Europe.png "Inflation and purchasing power adjusted GDP per capita in Europe")
 
 ![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Inflation%20in%20all%20countries.png "Inflation in all countries")
 
 ![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Inflation%20in%20selected%20countries.png "Inflation in selected countries")
 
 ![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Inflation%20components.png "Inflation components")
-
-![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Inflation%20and%20purchasing%20power%20adjusted%20GDP%20per%20capita%20in%20Europe.png "Inflation and purchasing power adjusted GDP per capita in Europe")
