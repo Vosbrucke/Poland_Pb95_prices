@@ -125,7 +125,7 @@ inflation_highlight_letters <- tibble(geo = c("AT", "DE", "MT", "HU", "PL"), col
 # Add countries letters to countries data
 inflation_highlight <- inflation %>% right_join(inflation_highlight_letters, by = "geo")
 
-country_code_name <- read.csv("Processed_data/countries_eu_inflation.csv", sep = ",") %>% 
+country_code_name <- read.csv(url("https://raw.githubusercontent.com/Vosbrucke/Poland_Pb95_prices/main/Processed_data/countries_eu_inflation.csv"), sep = ",") %>% 
   # Select polish country names. There are english names available as well
   select(country_name_pl, code)
 

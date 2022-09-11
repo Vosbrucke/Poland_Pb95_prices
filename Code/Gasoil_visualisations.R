@@ -7,9 +7,9 @@ library(patchwork)
 library(glue)
 library(ggh4x)
 
+
 # Read data
 data <- read_csv('Processed_data/full_data.csv')
-
 
 ## Model price in relation to the real price. 
 # The differences result from the assumptions of the model in the form of a fixed margin of 

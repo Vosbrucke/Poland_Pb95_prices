@@ -6,6 +6,7 @@ library(lubridate)
 library(sf)
 library(eurostat)
 
+
 ## Univariate maps
 
 ## Mapping annual increase in gasoline spending on univariate map
@@ -103,7 +104,7 @@ all_inflation <- full_inflation %>%
   inner_join(full_weight, by = c("coicop", "geo"))
 
 # Reading special aggregates used by Eurostat to inspect inflation
-special_aggregates <- read.csv("Processed_data/special_aggregates.csv", sep = ",")
+special_aggregates <- read.csv(url('https://raw.githubusercontent.com/Vosbrucke/Poland_Pb95_prices/main/Processed_data/special_aggregates.csv'), sep = ",")
 
 # Filtering aggregates to only some that are most interesting (for future analysis; not used in this code)
 special_aggregates_int <- special_aggregates[c(1, 7, 8, 12, 27, 33, 34, 36), 1]
@@ -179,7 +180,7 @@ inflation <- get_eurostat(id = "prc_hicp_manr",
   mutate(year = lubridate::year(time))
 
 # Read english country names to plot
-countries_eu <- read.csv("Processed_data/countries_eu_inflation.csv", sep = ",")[,c(1,3)]
+countries_eu <- read.csv(url("https://raw.githubusercontent.com/Vosbrucke/Poland_Pb95_prices/main/Processed_data/countries_eu_inflation.csv"), sep = ",")[,c(1,3)]
 
 # Filter inflation by blocked region
 inflation <- inflation %>% 
