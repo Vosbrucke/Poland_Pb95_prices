@@ -659,4 +659,4 @@ ggplot(data_y_to_y, aes(x = date, y = growth, group = code)) +
         axis.ticks = element_line(color = "black"),
         legend.position = "none")
 
-ggsave("Plots/Increase in Pb95 fuel prices among EU members.png", dpi = 900, width = 20, height = 20, units = "cm")
+ggsave("Plots/Increase in Pb95 fuel prices among EU members.png", dpi = 900, width = 22, height = 15, units = "cm")

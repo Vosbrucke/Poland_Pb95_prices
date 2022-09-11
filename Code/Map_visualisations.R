@@ -38,7 +38,7 @@ data <- fuel_price_EU %>%
   dplyr::rename(values_x = Euro_super_95, geo = code)
 
 title <- "Cena benzyny w Europie"
-subtitle <- paste("Średnia tygodniowa cena beznyny Pb95 na dzień", format(as.Date(data$date %>% unique()), "%d %B %Y"))
+subtitle <- paste("Średnia tygodniowa cena benzyny Pb95 na dzień", format(as.Date(data$date %>% unique()), "%d %B %Y"))
 legend <- "Średnia cena w €"
 caption <- "Źródło: Eurostat"
 
