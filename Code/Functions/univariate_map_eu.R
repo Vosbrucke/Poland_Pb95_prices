@@ -179,7 +179,7 @@ univariate_map_eu <- function(data, title = "", subtitle = "", legend = "", capt
 
   if (annotation) {
     warning("Under name 'univariate_plot' a plot is saved as ggplot object. You can add annotations to it or make any other changes. There may be a risk of overriding certain settings which can result in a missbehaving plot")
-    assign("univariate_plot", p)
+    assign("univariate_plot", p, envir = .GlobalEnv)
   } else {
     p
   }
