@@ -5,14 +5,19 @@ library(magrittr)
 library(lubridate)
 library(sf)
 library(eurostat)
+library(ggdraw)
+library(rstudioapi)
+library(viridis)
+library(cowplot)
+library(rmarkdown)
 
 
 ## Univariate maps
 
 ## Mapping annual increase in gasoline spending on univariate map
-# Filter for CP07222 coicop category- PETROL to see change in spendning
+# Filter for CP07222 coicop category- PETROL to see change in spending
 data <- get_eurostat("prc_hicp_manr", filters = list(coicop = "CP07222", lastTimePeriod = 2)) %>%
-  filter(time == min(time)) %>%
+  filter(time == max(time)) %>%
   filter(!geo %in% c("EA18", "EA19", "EU27_2020", "EU28", "EEA")) %>%
   drop_na() %>%
   select(geo, values) %>% 
@@ -21,7 +26,7 @@ data <- get_eurostat("prc_hicp_manr", filters = list(coicop = "CP07222", lastTim
 
 legend <- "Zmiana wydatków w %"
 title <- "Roczna zmiana wydatków na benzynę w Europie"
-subtitle <- "Zmiana mierzony inflacją w kategorii coicop petrol, sierpień 2022"
+subtitle <- "Zmiana mierzona inflacją w kategorii coicop petrol, sierpień 2022"
 caption <- "Źródło: Eurostat"
 
 univariate_map_eu(data = data, legend = legend, title = title, subtitle = subtitle, caption = caption)
@@ -161,7 +166,7 @@ data_y <- data_y %>%
 
 legend_x <- "niższa → wyższa\ninflacja"
 legend_y <- "Udział surowców\nenergetycznych w inflacji\nniższy → wyższy"
-title = "Poziom inflacji i udziału wzrostów cen energetycznych w Europie"
+title = "Poziom inflacji i udział wzrostów cen energetycznych w Europie"
 caption <- "Źródło: Eurostat"
 
 bivariate_map_eu(data_x = data_x, data_y = data_y, title = title, legend_x = legend_x, legend_y = legend_y, caption = caption, annotation = FALSE)

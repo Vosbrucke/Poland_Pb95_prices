@@ -9,7 +9,7 @@ library(eurostat)
 
 # Plot a Bivariate Choropleth
 bivariate_map_eu <- function(data_x = data_x, data_y = data_y, title = "", subtitle = "", legend_x = "values_x", legend_y = "values_y", caption = "", annotation = FALSE) {
-  # Function author: Szymon Lisowski
+  # Function: Szymon Lisowski
   # Inspired by: Timo Gressenbacher and Angelo Zehr
   
   # Interrupt if provided data frame to x does not have 2 columns
@@ -111,6 +111,9 @@ bivariate_map_eu <- function(data_x = data_x, data_y = data_y, title = "", subti
     mutate(values_x = as.integer(values_x),
            values_y = as.integer(values_y))
   
+  # For quick change in background color
+  background_color <- "#F5F5F2" # "white" or the original color "#F5F5F2"
+  
   # Add a theme function
   theme_map <- function(...) {
     theme_minimal() +
@@ -124,11 +127,11 @@ bivariate_map_eu <- function(data_x = data_x, data_y = data_y, title = "", subti
         panel.grid.major = element_line(color = "#ECECE9", size = 0.2),
         panel.grid.minor = element_blank(),
         # background colors
-        plot.background = element_rect(fill = "#F5F5F2",
+        plot.background = element_rect(fill = background_color,
                                        color = NA),
-        panel.background = element_rect(fill = "#F5F5F2",
+        panel.background = element_rect(fill = background_color,
                                         color = NA),
-        legend.background = element_rect(fill = "#F5F5F2",
+        legend.background = element_rect(fill = background_color,
                                          color = NA),
         # borders and margins
         plot.margin = unit(c(.5, .5, .2, .5), "cm"),
@@ -245,7 +248,7 @@ bivariate_map_eu <- function(data_x = data_x, data_y = data_y, title = "", subti
   p <- ggdraw() +
     draw_plot(map, 0, 0, 1, 1) +
     draw_plot(legend, 0, 0, 0.25, 0.25) +
-    theme(plot.background = element_rect(fill = "#F5F5F2", color = "#F5F5F2"))
+    theme(plot.background = element_rect(fill = background_color, color = background_color))
   
   if (annotation) {
     warning("Under name 'bivariate_plot' a plot is saved as ggplot object. You can add annotations to it or make any other changes. There may be a risk of overriding certain settings which can result in a missbehaving plot")

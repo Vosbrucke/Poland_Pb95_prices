@@ -9,7 +9,7 @@ library(eurostat)
 
 # Plot a Univariate Choropleth
 univariate_map_eu <- function(data, title = "", subtitle = "", legend = "", caption = "", annotation = FALSE) {
-  # Function author: Szymon Lisowski
+  # Function: Szymon Lisowski
   # Inspired by: Timo Gressenbacher and Angelo Zehr
   
   # Interrupt if provided data frame does not have 2 columns
@@ -69,6 +69,9 @@ univariate_map_eu <- function(data, title = "", subtitle = "", legend = "", capt
                                 labels = labels,
                                 include.lowest = T))
   
+  # For quick change in background color
+  background_color <- "#F5F5F2" # "white" or the original color "#F5F5F2"
+  
   # Add a theme function
   theme_map <- function(...) {
     theme_minimal() +
@@ -82,11 +85,11 @@ univariate_map_eu <- function(data, title = "", subtitle = "", legend = "", capt
         panel.grid.major = element_line(color = "#ECECE9", size = 0.2),
         panel.grid.minor = element_blank(),
         # background colors
-        plot.background = element_rect(fill = "#F5F5F2",
+        plot.background = element_rect(fill = background_color,
                                        color = NA),
-        panel.background = element_rect(fill = "#F5F5F2",
+        panel.background = element_rect(fill = background_color,
                                         color = NA),
-        legend.background = element_rect(fill = "#F5F5F2",
+        legend.background = element_rect(fill = background_color,
                                          color = NA),
         # borders and margins
         plot.margin = unit(c(.5, .5, .2, .5), "cm"),

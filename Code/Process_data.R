@@ -185,7 +185,7 @@ countries <- rep(countries_vector, length.out = nrow(fuel_price)) %>% sort()
 fuel_price_EU <- tibble(code = countries, fuel_price) %>% 
   mutate(Euro_super_95 = round(as.numeric(Euro_super_95)) / 1000)
 
-# Change a code for Greece to 'EL'. This will be important in plotting when other eurostat data writes Greece this way
+# Change a code for Greece to 'EL'. This will be important in plotting when other eurostat databases use 'EL' code for Greece
 fuel_price_EU$code[fuel_price_EU$code == "GR"] <- "EL"
 
 # Write csv with fuel price
@@ -202,8 +202,7 @@ countries_all$code[countries_all$code == "GR"] <- "EL"
 
 # Right join to code
 countries_eu <- countries_all %>% 
-  right_join(data.frame(code = possible_country_codes) %>% 
-  filter(!row_number() %in% c(9, 10, 14)), by = "code")
+  right_join(data.frame(code = c("AT", "BE", "BG", "CH", "CY", "CZ", "DE", "DK", "EE", "EL", "ES", "FI", "FR", "HR", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "SE", "SI", "SK", "TR")), by = "code")
 
 # Make additional tibble for other regions
 additional_countries_code <-  tibble(code = c("EA19", "EA", "EU"), country_name = c("Euro area (19 countries)", "Euro area", "European Union"), country_name_pl = c("Kraje strefy euro (19 krajów)", "Kraje strefy euro", "Unia Europejska"))

@@ -4,7 +4,7 @@ library(metR)
 library(lubridate)
 
 inflation_chart <- function(rate_of_change = "annual", region = "All", block_region = "TR", from_date = "2019-01-01", language_output = "en") {
-  # Function author: Szymon Lisowski
+  # Function: Szymon Lisowski
   # Inspired by: Franz X. Mohr, 'Decomposing Inflation for EA Countries'
   
   # Read country names to plot
@@ -159,7 +159,7 @@ inflation_chart <- function(rate_of_change = "annual", region = "All", block_reg
     geom_line(data = line, aes(linetype = line), size = 0.75) +
     geom_hline(aes(yintercept = 0)) +
     scale_fill_manual(values = palette) +
-    scale_x_date(expand = c(.01, 0), date_labels = "%m %Y") +
+    scale_x_date(expand = c(.01, 0), date_labels = "%Y") +
     scale_y_continuous(labels = paste0(breaks, "%"), breaks = breaks) +
     guides(linetype = guide_legend(ncol = 2, keywidth = 1.5),
            fill = guide_legend(ncol = 2)) +
@@ -175,10 +175,11 @@ inflation_chart <- function(rate_of_change = "annual", region = "All", block_reg
           axis.line = element_blank(),
           axis.ticks = element_blank(),
           panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
+          panel.grid.major.x = element_line(size = 0.2, color = "lightgrey", linetype = "dotted"),
           plot.title = element_text(face = "bold"),
-          plot.caption = element_text(hjust = 0, size = 4))
+          plot.caption = element_text(hjust = 0, size = 4)) 
   
-  # Finalise plot by wrapping if there is more than one region given
+  # Wrap if there is more than one region given
   if (length(region$code) > 1 || region$code == "All") {
     p <- p +   
       facet_wrap(~ country_name, ncol = 5)

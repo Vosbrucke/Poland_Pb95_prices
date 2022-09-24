@@ -21,7 +21,7 @@ data <- read_csv('Processed_data/full_data.csv')
 palette <- wesanderson::wes_palette("Zissou1", 7, type = "continuous")
 
 # Plot
-data %>% filter(Date > as.Date("2019-11-30")) %>%
+data %>% filter(Date > as.Date("2020-01-01")) %>%
   ggplot(aes(x = Date)) +
   geom_line(aes(y = price_model, color = "1"), size = 0.6, linetype = 5) +
   geom_line(aes(y = price, color = "2"), size = 0.6) +
@@ -31,17 +31,33 @@ data %>% filter(Date > as.Date("2019-11-30")) %>%
   geom_line(aes(y = store_margin, color = "6")) +
   geom_line(aes(y = fuel_surcharge, color = "7")) +
   geom_line(aes(y = emission_tax, color = "8")) +
-  scale_y_continuous(expand = c(0,0), limits = c(0,9), breaks = seq(0,8,2)) +
-  scale_x_date(limits = c(as.Date("2019-11-30"), NA), expand = c(0,0)) +
-  scale_color_manual(name = NULL, values = c("#666666", palette), labels = c("Cena modelowa", "Cena detaliczna", "Cena hurtowa", "Podatek emisyjny", "VAT", "Opłata paliwowa", "Akcyza", "Marża stacji")) +
+  scale_y_continuous(expand = c(0,0), 
+                     limits = c(0,9), 
+                     breaks = seq(0,8,2)) +
+  # scale_x_date(limits = c(as.Date("2019-11-30"), NA), 
+  #              expand = c(0,0)) +
+  scale_x_date(breaks = seq.Date(from = floor_date(as.Date("2020-01-01"), "month"), to = ceiling_date(max(data$Date), "month"), "6 months"), 
+               date_labels = "%b %y",
+               minor_breaks = seq.Date(from = floor_date(as.Date("2020-01-01"), "month"), to = ceiling_date(max(data$Date), "month"), "month"), 
+               guide = "axis_minor",
+               limits = c(floor_date(as.Date("2020-01-01"), "month"), ceiling_date(max(data$Date), "month")),
+               expand = c(0, 0)) +
+  scale_color_manual(name = NULL, 
+                     values = c("#666666", palette), 
+                     labels = c("Cena modelowa", "Cena detaliczna", "Cena hurtowa", "Podatek emisyjny", "VAT", "Opłata paliwowa", "Akcyza", "Marża stacji")) +
   theme_classic() +
-  labs(x = NULL, y = NULL, title = "Ceny poszczególnych czynników wchodzących w skład ceny detalicznej paliwa Pb95", subtitle = "Cena modelowa stanowi sumę cen czynników cenotwórczych dla paliwa Pb95") +
+  labs(x = NULL, y = NULL, 
+       title = "Ceny poszczególnych czynników wchodzących w skład ceny detalicznej paliwa Pb95", 
+       subtitle = "Cena modelowa stanowi sumę cen czynników cenotwórczych dla paliwa Pb95",
+       caption = "Źródło: Bankier, Lotos") +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_markdown(face = "bold"),
         plot.subtitle = element_text(size = 8),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
-        axis.text = element_text(color = "black"),
+        axis.text.x = element_text(color = "black", angle = 90, hjust = 1, vjust = 0.5),
+        axis.text.y = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
         text = element_text(color = "black"))
 
@@ -56,7 +72,8 @@ palette <- wesanderson::wes_palette("Zissou1", 2, type = "continuous")
 # Filter data to start from the beginning of 2022. Add growth columns for brent and brent in PLN
 data_growth <- data %>%  
   filter(Date > as.Date("2022-01-01")) %>% 
-  mutate(last_price_hurt = 100 * price_hurt / last(price_hurt), last_brentPLN = 100 * brentPLN / last(brentPLN))
+  mutate(last_price_hurt = 100 * price_hurt / last(price_hurt), 
+         last_brentPLN = 100 * brentPLN / last(brentPLN))
 
 # Limit data frame to latest observations
 data_growth_last <- data_growth %>% 
@@ -64,7 +81,8 @@ data_growth_last <- data_growth %>%
   filter(Date == max(Date))
 
 # Bind rows of two data frames to make a line for a self-made legend 
-data_growth_last_line <- bind_rows(data_growth_last, data_growth_last %>% mutate(Date = Date + days(15)))
+data_growth_last_line <- bind_rows(data_growth_last, data_growth_last %>% 
+                         mutate(Date = Date + days(15)))
 
 # Plot
 data_growth %>% 
@@ -85,12 +103,16 @@ data_growth %>%
                expand = c(0, 0)
   ) +
   scale_color_manual(name = NULL, values = c("Cena hurtowa" = palette[1], "Brent Oil w PLN" = "#E4B80E")) +
-  labs(x = NULL, y = NULL, title = 'Cena w hurcie "oderwała" się od notowań Brent Oil wyrażonych w PLN', subtitle = "100 = poziom cen w dniu 01.01.2022") +
+  labs(x = NULL, y = NULL, 
+       title = 'Cena w hurcie "oderwała" się od notowań Brent Oil wyrażonych w PLN', 
+       subtitle = "100 = poziom cen w dniu 01.01.2022",
+       caption = "Źródło: EIA, Lotos, Stooq") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_markdown(face = "bold"),
         plot.subtitle = element_text(size = 8),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -140,14 +162,21 @@ share_data %>%
                               y = 0.818102479707454, label = "Obniżka VAT na paliwo \n z 23% do 8%"),
             mapping = aes(x = x, y = y, label = label),
             inherit.aes = FALSE, color = "black") +
-  scale_fill_manual(values = palette, labels = c("cena hurtowa", "akcyza", "VAT", "marża stacji", "opłata paliwowa", "podatek emisyjny"), name = NULL) +
-  scale_x_date(date_breaks = "6 months", date_labels = "%b %y", limits = c(floor_date(min(share_data$Date), "month"), max(share_data$Date))) + 
+  scale_fill_manual(values = palette, 
+                    labels = c("cena hurtowa", "akcyza", "VAT", "marża stacji", "opłata paliwowa", "podatek emisyjny"), 
+                    name = NULL) +
+  scale_x_date(date_breaks = "6 months", 
+               date_labels = "%b %y", 
+               limits = c(floor_date(min(share_data$Date), "month"), max(share_data$Date))) + 
   coord_cartesian(expand = c(0,0)) +
-  labs(y = NULL, x = NULL, title = "Procentowy udział poszczególnych czynników cenotwórczych paliwa Pb95 w Polsce od 2020 r.") +
+  labs(y = NULL, x = NULL, 
+       title = "Procentowy udział poszczególnych czynników cenotwórczych paliwa Pb95 w Polsce od 2020 r.",
+       caption = "Źródło: Bankier, e-Petrol, Lotos") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_markdown(face = "bold", size = 9, hjust = 0.1),
+        plot.caption = element_text(hjust = 0, size = 4),
         axis.line = element_blank(),
         axis.text.x = element_text(color = "black", angle = 90),
         axis.text.y = element_blank(),
@@ -174,8 +203,12 @@ p1 <- data %>%
   geom_line() +
   labs(x = NULL, y = NULL) +
   ggtitle("Ropa brent w PLN w latach 2005-2022") +
-  scale_y_continuous(breaks = seq(0,600, 150), limits = c(0,650), expand = c(0,0)) +
-  scale_x_date(date_labels = "%Y", minor_breaks = seq.Date(as.Date("2005-01-01"), as.Date(now() + years(3)), by = "year"), guide = "axis_minor") +
+  scale_y_continuous(breaks = seq(0,600, 150), 
+                     limits = c(0,650), 
+                     expand = c(0,0)) +
+  scale_x_date(date_labels = "%Y", 
+               minor_breaks = seq.Date(as.Date("2005-01-01"), as.Date(now() + years(3)), by = "year"), 
+               guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -190,14 +223,19 @@ p2 <- data %>%
   filter(!year == 2004) %>%
   ggplot(aes(x = year, y = brentPLN, group = year)) + 
   geom_boxplot() +
-  labs(x = NULL, y = NULL) +
+  labs(x = NULL, y = NULL,
+       cation = "Źródło: EIA, stooq") +
   ggtitle("Ropa brent w PLN w latach 2005-2022") +
-  scale_y_continuous(breaks = seq(0,600, 150), limits = c(0,650), expand = c(0,0)) +
-  scale_x_continuous(minor_breaks = seq(2005, 2025, 1), guide = "axis_minor") +
+  scale_y_continuous(breaks = seq(0,600, 150), 
+                     limits = c(0,650), 
+                     expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2005, 2025, 1), 
+                     guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_markdown(),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -216,14 +254,21 @@ data %>%
   ggplot(aes(x = year, y = brentPLN, group = year)) +
   geom_line() +
   geom_point(mapping = aes(y = median), shape = 22, color = USD_color, fill = "white", size = 2, stroke = 1) +
-  labs(x = NULL, y = NULL) +
+  labs(x = NULL, y = NULL,
+       caption = "Źródło: EIA, stooq") +
   ggtitle("Rozstęp i <span style='color:#9EBE91;'>mediana</span> ropy brent w PLN w latach 2005-2022") +
-  scale_y_continuous(breaks = seq(0,600, 150), limits = c(0,650), expand = c(0,0)) +
-  scale_x_continuous(minor_breaks = seq(2004, 2025, 1), guide = "axis_minor", limits = c(2004,(year(max(data$Date) + years(1)))), expand = c(0.,0)) +
+  scale_y_continuous(breaks = seq(0,600, 150), 
+                     limits = c(0,650), 
+                     expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2004, 2025, 1), 
+                     guide = "axis_minor", 
+                     limits = c(2004,(year(max(data$Date) + years(1)))), 
+                     expand = c(0.,0)) +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_markdown(face = "bold"),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -237,20 +282,31 @@ ggsave("Plots/Range and median in PLN.png", dpi  = 900, width = 20, height = 10,
 data %>%
   group_by(year) %>%
   filter(!year == 2004) %>%
-  mutate(max = max(brentPLN), min = min(brentPLN), range = max - min, range_mean = range / mean(brentPLN)) %>%
+  mutate(max = max(brentPLN), 
+         min = min(brentPLN), 
+         range = max - min, 
+         range_mean = range / mean(brentPLN)) %>%
   select(year, range, range_mean) %>%
   filter(row_number() == 1) %>%
   ggplot(aes(x = year, y = range)) +
   geom_line(color = PLN_color, size = 0.75) +
   geom_point(shape = 21, size = 1.5, stroke = 1, fill = "white", color = PLN_color) +
-  labs(x = NULL, y = NULL) +
+  labs(x = NULL, y = NULL,
+       caption = "Źródło: EIA, stooq") +
   ggtitle("Zakres notowań ropy brent w PLN w latach 2005-2022") +
-  scale_y_continuous(breaks = seq(0,300, 50), limits = c(0,260), expand = c(0,0)) +
-  scale_x_continuous(minor_breaks = seq(min(data$year), 2025, 1), guide = "axis_minor", breaks = seq(min(data$year) + 1, 2020, 5), expand = c(0,0), limits = c(min(data$year), max(data$year) + 1)) +
+  scale_y_continuous(breaks = seq(0,300, 50), 
+                     limits = c(0,260), 
+                     expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(min(data$year), 2025, 1), 
+                     guide = "axis_minor", 
+                     breaks = seq(min(data$year) + 1, 2020, 5), 
+                     expand = c(0,0), 
+                     limits = c(min(data$year), max(data$year) + 1)) +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_markdown(face = "bold"),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -277,16 +333,23 @@ data %>%
   geom_line() +
   geom_segment(data = data_open_close, aes(x = year, xend = year, y = open, yend = close, color = color), size = 2) +
   scale_color_manual(values = c("#DF484C", "#449682")) +
-  labs(x = NULL, y = NULL) +
+  labs(x = NULL, y = NULL,
+       caption = "Źródło: EIA, stooq") +
   ggtitle("Wykres świecowy dla cen ropy brent w PLN w latach 2005-2022") +
-  scale_y_continuous(breaks = seq(0,600, 150), limits = c(0,650), expand = c(0,0)) +
-  scale_x_continuous(minor_breaks = seq(2004, 2025, 1), guide = "axis_minor", limits = c(2004,(year(max(data$Date) + years(1)))), expand = c(0.,0)) +
+  scale_y_continuous(breaks = seq(0,600, 150), 
+                     limits = c(0,650), 
+                     expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2004, 2025, 1), 
+                     guide = "axis_minor", 
+                     limits = c(2004,(year(max(data$Date) + years(1)))), 
+                     expand = c(0.,0)) +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
         plot.title = element_markdown(face = "bold"),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         legend.position = "none")
 
@@ -302,8 +365,12 @@ p1 <- data %>%
   geom_line() +
   labs(x = NULL, y = NULL) +
   ggtitle("Ropa brent w USD w latach 2005-2022") +
-  scale_y_continuous(breaks = seq(0,150, 25), limits = c(0,165), expand = c(0,0)) +
-  scale_x_date(date_labels = "%Y", minor_breaks = seq.Date(as.Date("2005-01-01"), as.Date(now() + years(3)), by = "year"), guide = "axis_minor") +
+  scale_y_continuous(breaks = seq(0,150, 25), 
+                     limits = c(0,165), 
+                     expand = c(0,0)) +
+  scale_x_date(date_labels = "%Y", 
+               minor_breaks = seq.Date(as.Date("2005-01-01"), as.Date(now() + years(3)), by = "year"), 
+               guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -318,14 +385,19 @@ p2 <- data %>%
   filter(!year == 2004) %>%
   ggplot(aes(x = year, y = brent, group = year)) + 
   geom_boxplot() +
-  labs(x = NULL, y = NULL) +
+  labs(x = NULL, y = NULL,
+       caption = "Źródło: EIA, stooq") +
   ggtitle("Ropa brent USD w latach 2005-2022") +
-  scale_y_continuous(breaks = seq(0,150, 25), limits = c(0,165), expand = c(0,0)) +
-  scale_x_continuous(minor_breaks = seq(2005, 2025, 1), guide = "axis_minor") +
+  scale_y_continuous(breaks = seq(0,150, 25), 
+                     limits = c(0,165), 
+                     expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2005, 2025, 1), 
+                     guide = "axis_minor") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_markdown(),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -345,14 +417,21 @@ data %>%
   ggplot(aes(x = year, y = brent, group = year)) +
   geom_line() +
   geom_point(mapping = aes(y = median), shape = 22, color = USD_color, fill = "white", size = 2, stroke = 1) +
-  labs(x = NULL, y = NULL) +
+  labs(x = NULL, y = NULL,
+       caption = "Źródło: EIA, stooq") +
   ggtitle("Rozstęp i <span style='color:#9EBE91;'>mediana</span> ropy brent w USD w latach 2005-2022") +
-  scale_y_continuous(breaks = seq(0,150, 25), limits = c(0,149), expand = c(0,0)) +
-  scale_x_continuous(minor_breaks = seq(2004, 2025, 1), guide = "axis_minor", limits = c(2004,(year(max(data$Date) + years(1)))), expand = c(0.,0)) +
+  scale_y_continuous(breaks = seq(0,150, 25), 
+                     limits = c(0,149), 
+                     expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2004, 2025, 1), 
+                     guide = "axis_minor", 
+                     limits = c(2004,(year(max(data$Date) + years(1)))),
+                     expand = c(0.,0)) +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_markdown(face = "bold"),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -372,14 +451,22 @@ data %>%
   ggplot(aes(x = year, y = range)) +
   geom_line(color = USD_color) +
   geom_point(shape = 21, size = 2, stroke = 1, fill = "white", color = USD_color) +
-  labs(x = NULL, y = NULL) +
+  labs(x = NULL, y = NULL,
+       caption = "Źródło: EIA, stooq") +
   ggtitle("Zakres notowań ropy brent w USD w latach 2005-2022") +
-  scale_y_continuous(breaks = seq(0,110, 20), limits = c(0,110), expand = c(0,0)) +
-  scale_x_continuous(minor_breaks = seq(min(data$year), 2025, 1), guide = "axis_minor", breaks = seq(min(data$year) + 1, 2020, 5), expand = c(0,0), limits = c(min(data$year), max(data$year) + 1)) +
+  scale_y_continuous(breaks = seq(0,110, 20), 
+                     limits = c(0,110), 
+                     expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(min(data$year), 2025, 1), 
+                     guide = "axis_minor", 
+                     breaks = seq(min(data$year) + 1, 2020, 5), 
+                     expand = c(0,0), 
+                     limits = c(min(data$year), max(data$year) + 1)) +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_text(face = "bold"),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -407,16 +494,23 @@ data %>%
   geom_line() +
   geom_segment(data = data_open_close, aes(x = year, xend = year, y = open, yend = close, color = color), size = 2) +
   scale_color_manual(values = c("#DF484C", "#449682")) +
-  labs(x = NULL, y = NULL) +
+  labs(x = NULL, y = NULL,
+       caption = "Źródło: EIA, stooq") +
   ggtitle("Wykres świecowy dla cen ropy brent w USD w latach 2005-2022") +
-  scale_y_continuous(breaks = seq(0,150, 25), limits = c(0,160), expand = c(0,0)) +
-  scale_x_continuous(minor_breaks = seq(2004, 2025, 1), guide = "axis_minor", limits = c(2004,(year(max(data$Date) + years(1)))), expand = c(0.,0)) +
+  scale_y_continuous(breaks = seq(0,150, 25), 
+                     limits = c(0,160), 
+                     expand = c(0,0)) +
+  scale_x_continuous(minor_breaks = seq(2004, 2025, 1), 
+                     guide = "axis_minor", 
+                     limits = c(2004,(year(max(data$Date) + years(1)))), 
+                     expand = c(0.,0)) +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
         plot.title = element_markdown(face = "bold"),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         legend.position = "none")
 
@@ -433,21 +527,30 @@ p <- data %>%
   ggplot(aes(x = Date)) + 
   geom_line(aes(y = brent_rel, color = "Brent USD")) +
   geom_line(aes(y = brentPLN_rel, color = "Brent PLN")) +
-  labs(x = NULL, y = NULL, subtitle = "100 = poziom ceny 1 stycznia 2005 roku") +
+  labs(x = NULL, y = NULL, 
+       subtitle = "100 = poziom ceny 1 stycznia 2005 roku",
+       caption = "Źródło: EIA, stooq") +
   ggtitle("Relatywny wzrost ropy brent w USD i PLN od 2005 roku")
 
 # Making a plot more pretty
 p <- p +
-  scale_y_continuous(breaks = seq(0,400, 100), limits = c(0,450), expand = c(0,0)) +
-  scale_x_date(limits = c(floor_date(min(data$Date) - years(1), "year"), floor_date(max(data$Date) + years(3), "year")), expand = c(0,0),
+  scale_y_continuous(breaks = seq(0,400, 100), 
+                     limits = c(0,450), 
+                     expand = c(0,0)) +
+  scale_x_date(limits = c(floor_date(min(data$Date) - years(1), "year"), floor_date(max(data$Date) + years(3), "year")), 
+               expand = c(0,0),
                breaks = seq.Date(as.Date("2005-01-01"), as.Date("2020-01-01"), "5 years"),
-               date_labels = "%Y", minor_breaks = seq.Date(as.Date("2003-01-01"), as.Date(now() + years(4)), by = "year"), guide = "axis_minor") +
-  scale_color_manual(name = NULL, values = c(PLN_color, USD_color)) +
+               date_labels = "%Y", 
+               minor_breaks = seq.Date(as.Date("2003-01-01"), as.Date(now() + years(4)), by = "year"), 
+               guide = "axis_minor") +
+  scale_color_manual(name = NULL, 
+                     values = c(PLN_color, USD_color)) +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_text(face = "bold"),
         plot.subtitle = element_text(size = 8),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -527,7 +630,9 @@ fuel_price_EU_growth_y_to_y <- fuel_price_EU %>%
 palette <- wesanderson::wes_palette("Darjeeling1", n = 5, type = "continuous")
 
 # Make a tibble to use in correct order as colors on the plot 
-countries_letters <- tibble(code = c("AT", "DE", "MT", "HU", "PL"), color = c("B", "D", "C", "E", "A"), names = c("Austria", "Niemcy", "Malta", "Węgry", "Polska")) %>% 
+countries_letters <- tibble(code = c("AT", "DE", "MT", "HU", "PL"), 
+                            color = c("B", "D", "C", "E", "A"), 
+                            names = c("Austria", "Niemcy", "Malta", "Węgry", "Polska")) %>% 
   arrange(code)
 
 # Join two data frames and keep only selected countries
@@ -573,12 +678,15 @@ fuel_price_EU %>%
                guide = "axis_minor") +
   scale_y_continuous(breaks = seq(0, 2.5, 0.5), 
                      labels = paste0(seq(0, 2.5, 0.5), "€")) +
-  labs(x = NULL, y = NULL, title = paste("Cena Pb95 wśród członków UE na dzień", format(max(fuel_price_EU$date), "%d %B %Y"))) + 
+  labs(x = NULL, y = NULL, 
+       title = paste("Cena Pb95 wśród członków UE na dzień", format(max(fuel_price_EU$date), "%d %B %Y")), 
+       caption = "Źródło: Oil Bulletin. European Commission, 2022") + 
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_text(face = "bold"),
         plot.subtitle = element_text(size = 8),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),
@@ -599,7 +707,11 @@ data_y_to_y <- fuel_price_EU %>%
          is_poland = code == "PL")
 
 # Find top 3 countries that have had the biggest growth in Pb95 price
-data_y_to_y %>% filter(row_number() == 1) %>% summarise(max = max(growth)) %>% arrange(desc(max)) %>% head(n = 3)
+data_y_to_y %>% 
+  filter(row_number() == 1) %>% 
+  summarise(max = max(growth)) %>% 
+  arrange(desc(max)) %>% 
+  head(n = 3)
 
 # Filter for interesting countries to hightlight them in a plot
 countries <- data_y_to_y %>%
@@ -607,8 +719,12 @@ countries <- data_y_to_y %>%
   group_by(code) %>%
   arrange(code)
 
-# Create a tibble with names and letters
-countries_letters <- tibble(code = c("AT", "DE", "MT", "HU", "PL"), color = c("B", "D", "C", "E", "A"), names = c("Austria", "Niemcy", "Malta", "Węgry", "Polska")) %>%
+# Create a tibble with names and letters. If you want to highlight different countries change code and name
+# Colors are used to better differentiate the countries between each other. Otherwise some of the countries would have
+# too similar colors and it would be hard to distinguish them. 
+countries_letters <- tibble(code = c("AT", "DE", "MT", "HU", "PL"), 
+                            color = c("B", "D", "C", "E", "A"), 
+                            names = c("Austria", "Niemcy", "Malta", "Węgry", "Polska")) %>%
   arrange(code)
 
 # Add countries letters to countries data
@@ -646,7 +762,8 @@ ggplot(data_y_to_y, aes(x = date, y = growth, group = code)) +
                minor_breaks = seq.Date(floor_date(as.Date(min(data_y_to_y$date)), unit = "month"), ceiling_date(as.Date(max(data_y_to_y$date)) + months(1), unit = "month") + days(1), by = "1 month"), 
                guide = "axis_minor") +
   labs(x = NULL, y = NULL, 
-       title = paste("Wzrost cen paliwa Pb95 wśród członków UE od", format(as.Date(min(data_y_to_y$date)), "%d %B %Y"), "do", format(as.Date(max(data_y_to_y$date)), "%d %B %Y"))) + 
+       title = paste("Wzrost cen paliwa Pb95 wśród członków UE od", format(as.Date(min(data_y_to_y$date)), "%d %B %Y"), "do", format(as.Date(max(data_y_to_y$date)), "%d %B %Y")),
+       caption = "Źródło: Oil Bulletin. European Commission, 2022") + 
   scale_y_continuous(labels = paste0(seq(0,60,20), "%"), 
                      breaks = seq(0,60,20)) +
   theme_classic() +
@@ -654,6 +771,7 @@ ggplot(data_y_to_y, aes(x = date, y = growth, group = code)) +
         axis.ticks.y = element_blank(),
         plot.title = element_text(face = "bold"),
         plot.subtitle = element_text(size = 8),
+        plot.caption = element_text(hjust = 0, size = 4),
         panel.grid.major.y = element_line(size = 0.2, color = "lightgrey"),
         axis.text = element_text(color = "black"),
         axis.ticks = element_line(color = "black"),

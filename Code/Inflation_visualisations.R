@@ -66,10 +66,14 @@ inflation %>%
   ggplot(aes(x = growth_total, y = full_coicop.sum, color = full_coicop.sum - growth_total)) +
   geom_abline() + 
   geom_point() +
-  labs(x = "Inflacja według danych z Eurostatu", y = "Obliczona inflacja przy użyciu głównych kategorii coicop", title = "Różnica między rzeczywistą a sumaryczną ważoną inflacją kategorii coicop") +
+  labs(x = "Inflacja według danych z Eurostatu", 
+       y = "Obliczona inflacja przy użyciu głównych kategorii coicop", 
+       title = "Różnica między rzeczywistą a sumaryczną ważoną inflacją kategorii coicop",
+       caption = "Źródło: Eurostat") +
   scale_color_viridis_c(option = "viridis", name = NULL, direction = -1) +
   theme_classic() +
   theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        plot.caption = element_text(hjust = 0, size = 4),
         legend.position = "none")
 
 ggsave("Plots/The difference between the actual inflation and total inflation summed coicop categories.png", dpi = 900, width = 20, height = 15, units = "cm")
@@ -92,9 +96,13 @@ weight_inflation %>%
   geom_point(aes(color = sum - 100)) +
   geom_hline(aes(yintercept = 0)) +
   scale_color_gradient2(low = ("darkred"), mid = "black", high = ("darkred")) +
-  labs(x = "Zsumowana waga głównych kategorii coicop", y = "Różnica od właściwej wagi", title = "Wagi kategorii coicop powinny się sumować do 100") +
+  labs(x = "Zsumowana waga głównych kategorii coicop",
+       y = "Różnica od właściwej wagi", 
+       title = "Wagi kategorii coicop powinny się sumować do 100",
+       caption = "Źródło: Eurostat") +
   theme_classic() +
   theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        plot.caption = element_text(hjust = 0, size = 4),
         legend.position = "none")
 
 ggsave("Plots/The sum of the weights for the main coicop category weights.png", dpi = 900, width = 22, height = 15, units = "cm")
@@ -140,7 +148,7 @@ inflation %>%
   geom_col(data = inflation_highlight, aes(x = names, y = growth_total, fill = color)) +
   geom_hline(aes(yintercept = 0), color = "black", size = 0.5) +
   scale_fill_manual(values = palette, name = NULL) +
-  labs(x = NULL, y = NULL, title = "Wzrost cen w % wg kategorii coicop eurostatu") +
+  labs(x = NULL, y = NULL, title = "Wzrost cen w % wg kategorii coicop eurostatu", caption = "Źródło: Eurostat") +
   scale_y_continuous(expand = c(0,0.2)) +
   facet_wrap(~ coicop, ncol = 1) +
   theme(axis.text = element_text(color = "black", size = 8),
@@ -152,7 +160,8 @@ inflation %>%
         panel.background = element_rect(fill = "white"),
         plot.background = element_rect(fill = "white"),
         strip.background = element_rect(fill = "white"),
-        plot.title = element_text(hjust = 0.5, face = "bold"))
+        plot.title = element_text(hjust = 0.5, face = "bold"),
+        plot.caption = element_text(hjust = 0, size = 4))
 
 ggsave("Plots/Inflation components.png", dpi = 900, width = 30, height = 30, units = "cm")
 
@@ -165,6 +174,6 @@ inflation_chart(language_output = "pl")
 ggsave("Plots/Inflation in all countries.png", dpi = 900, height = 50, width = 40, units = "cm")
 
 
-inflation_chart(region = c("Poland", "Italy", "Germany", "Austria"), language_output = "pl")
+inflation_chart(region = c("Austria", "Malta", "Germany", "Poland", "Hungary"), language_output = "pl")
 
 ggsave("Plots/Inflation in selected countries.png", dpi = 900, height = 15, width = 25, units = "cm")
