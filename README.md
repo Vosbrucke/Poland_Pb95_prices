@@ -63,13 +63,13 @@ Powyższy wykres pozwala zauważyć pewne zależności między ceną hurtową a 
 
 
   Interesującą analizą przestrzenną jest również przestawienie aktualnej (na dzień 19 września 2022 r.) średniej ceny na mapie. Okazuje się bowiem, że grupowanie się krajów o podobnej cenie zdaje się być niewielkie. Cena benzyny jest najwyższa dla krajów skandynawskich, Niemiec, Holandii oraz Grecji. Najniższe ceny można znaleźć na stacjach w Polsce, na Węgrzech, w Słowenii i Chorwacji. Nie jest to jednak wcale pokrzepiająca informacja dla tych krajów z uwagi na niższy poziom średnich zarobków i większego udziału wydatków na produkty energetyczne w wydatkach ogółem. Te kwestie sprawiają, że Polska i inne kraje Europy Środkowo-Wschodniej są w jeszcze większym stopniu dotknięte zmianami cen od krajów Europy Zachodniej co widoczne jest na poprzednim wykresie rocznej zmiany wydatków na benzynę w Europie.
-
-![map](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Gasoil%20prices%20in%20Europe%20on%202021-08-23.png "Gasoil prices in Europe in 2022")
+ 
+![map](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Gasoil%20prices%20in%20Europe%20on%202022-08-29.png "Gasoil prices in Europe in 2022")
 
 
   Wizualizacja poziomu cen na mapie dla 2021 r. umożliwia zauważenie zakresu zmian, które nastąpiły w przeciągu roku. W przypadku danych na 30 sierpnia 2021 r. widoczne jest grupowanie się krajów o wysokiej cenie w regionie Europy Zachodniej i krajów skandynawskich oraz krajów o niskiej cenie w regionie Europy Środkowo-Wschodniej. 
 
-![map](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Annual%20change%20in%20gasoline%20spending%20in%20Europe.png "Gasoil prices in Europe in 2021")
+![map](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Gasoil%20prices%20in%20Europe%20on%202021-08-23.png "Gasoil prices in Europe in 2021")
 
 
 # Inflacja
