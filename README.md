@@ -5,9 +5,6 @@ Cena paliwa obserwowana na stacjach benzynowych jest uzależniona od szeregu ró
 ([źródło](https://www.eia.gov/outlooks/steo/report/global_oil.php)).
 
 
-Cena paliwa obserwowana na stacjach benzynowych jest uzależniona od szeregu różnych czynników. Ostatnie laty charakteryzowały się znacznymi wahaniami na rynku światowym co ma swoje odzwierciedlenie w cenach paliwa. Pierwsze problemy były wywołane pandemią COVID-19- ograniczeniami handlu, przemieszczania się, kwarantann. Widmo recesji szybko zostało jednak zniwelowane poprzez zdecydowaną reakcję większości rządów oraz banków centralnych na świecie. Ożywienie gospodarcze spowodowane ekspansywną polityką gospodarczą wkrótce doprowadziło jednak do kolejnych szoków. Producenci próbując nadążyć za popytem zwiększali swoje zdolności produkcyjne przyczyniając się do wzrostu zapotrzebowania na ropę naftową. Już w lutym 2021 r. cena ropy powróciła do poziomów sprzed pandemii osiągając 60 USD za baryłkę. W kolejnych miesiącach wzrost był kontynuowany z uwagi na problemy w zwiększeniu podaży ropy. Ponowne uruchomienie szybów naftowych wyłączonych w początkowym okresie pandemii okazało się być procesem długotrwałym i kosztownym. Dopiero w połowie 2022 r. produkcja ropy niemal się zrównała z poziomem sprzed pandemii osiągając wynik 98,8 mln baryłek dziennie [[źródło](https://www.eia.gov/outlooks/steo/report/global_oil.php)].
-
-
 ![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Range%20and%20median%20in%20PLN.png "Range and median Brent oil price in PLN")
 ![plot](https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Range%20and%20median%20in%20USD.png "Range and median Brent oil price in USD")
 
