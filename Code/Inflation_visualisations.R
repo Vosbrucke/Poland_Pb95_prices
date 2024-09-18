@@ -11,18 +11,20 @@ library(eurostat)
 
 ## The difference between the actual inflation and total inflation summed coicop categories
 # Applying names to coicop categories
-CPO_names <- c("Żywność i napoje bezalkoholowe",
-               "Napoje alkoholowe i tytoń",
-               "Odzież i obuwie",
-               "Mieszkania, woda, prąd, gaz i inne paliwa",
-               "Wyposażenie, sprzęt AGD i rutynowa konserwacja domu",
-               "Zdrowie",
-               "Transport",
-               "Komunikacja",
-               "Rekreacja i kultura",
-               "Edukacja",
-               "Restauracje i hotele",
-               "Różne towary i usługi")
+CPO_names <- c(
+  "Food and non-alcoholic beverages",
+  "Alcoholic beverages and tobacco",
+  "Clothing and footwear",
+  "Housing, water, electricity, gas and other fuels",
+  "Furniture, household appliances and routine home maintenance",
+  "Health",
+  "Transportation",
+  "Communication",
+  "Recreation and culture",
+  "Education",
+  "Restaurants and hotels",
+  "Miscellaneous goods and services"
+)
 
 # Generate CP01 to CP012 names to properly filter inflation coicop
 one_to_twelve <- sapply(X = 1:12, FUN = function(X) {paste0("CP0", X)})
@@ -66,10 +68,10 @@ inflation %>%
   ggplot(aes(x = growth_total, y = full_coicop.sum, color = full_coicop.sum - growth_total)) +
   geom_abline() + 
   geom_point() +
-  labs(x = "Inflacja według danych z Eurostatu", 
-       y = "Obliczona inflacja przy użyciu głównych kategorii coicop", 
-       title = "Różnica między rzeczywistą a sumaryczną ważoną inflacją kategorii coicop",
-       caption = "Źródło: Eurostat") +
+  labs(x = "Eurostat's inflation", 
+       y = "Calculated inflation using the main coicop categories", 
+       title = "Difference between actual and weighted total inflation of coicop category",
+       caption = "Source: Eurostat") +
   scale_color_viridis_c(option = "viridis", name = NULL, direction = -1) +
   theme_classic() +
   theme(plot.title = element_text(face = "bold", hjust = 0.5),
@@ -81,14 +83,14 @@ ggsave("Plots/The difference between the actual inflation and total inflation su
 
 ## Checking whether weights by coicop sums up to 100
 weight_inflation <- get_eurostat("prc_hicp_inw") %>%
-  filter(time == min(time)) %>%
-  filter(!geo %in% c("EA18", "EA19", "EU27_2020", "EU28", "EEA")) %>%
+  dplyr::filter(time == min(time)) %>%
+  dplyr::filter(!geo %in% c("EA18", "EA19", "EU27_2020", "EU28", "EEA")) %>%
   drop_na()
 
 # Plot
 weight_inflation %>% 
-  filter(!geo %in% c("EA18", "EA19", "EU27_2020", "EU28", "EEA", "TR","EL")) %>%
-  filter(coicop %in% one_to_twelve) %>%
+  dplyr::filter(!geo %in% c("EA18", "EA19", "EU27_2020", "EU28", "EEA", "TR","EL")) %>%
+  dplyr::filter(coicop %in% one_to_twelve) %>%
   group_by(geo) %>% 
   summarise(sum = sum(values) / 10) %>% 
   ggplot(aes(x = sum, y = sum - 100)) +
@@ -96,10 +98,10 @@ weight_inflation %>%
   geom_point(aes(color = sum - 100)) +
   geom_hline(aes(yintercept = 0)) +
   scale_color_gradient2(low = ("darkred"), mid = "black", high = ("darkred")) +
-  labs(x = "Zsumowana waga głównych kategorii coicop",
-       y = "Różnica od właściwej wagi", 
-       title = "Wagi kategorii coicop powinny się sumować do 100",
-       caption = "Źródło: Eurostat") +
+  labs(x = "Total weight of the main coicop categories",
+       y = "Difference from the correct weight", 
+       title = "The weights of the coicop categories should add up to 100",
+       caption = "Source: Eurostat") +
   theme_classic() +
   theme(plot.title = element_text(face = "bold", hjust = 0.5),
         plot.caption = element_text(hjust = 0, size = 4),
@@ -111,23 +113,23 @@ ggsave("Plots/The sum of the weights for the main coicop category weights.png", 
 ## Inflation components
 # Preparing a data. Filtering for CP numbers, applying labels
 inflation <- full_inflation %>% 
-  filter(geo != "TR") %>%
+  dplyr::filter(geo != "TR") %>%
   mutate(growth_total = weight * inflation / 100,
          perc_of_inflation = growth_total / inflation * 100) %>%
-  filter(coicop %in% one_to_twelve) %>%
+  dplyr::filter(coicop %in% one_to_twelve) %>%
   mutate(coicop = factor(coicop, levels = c(one_to_twelve), labels = CPO_names)) %>%
   arrange(growth_total) %>%
   group_by(geo)
 
 # Adjust data frame
 inflation <- full_inflation %>% 
-  filter(coicop != "CP00") %>% 
+  dplyr::filter(coicop != "CP00") %>% 
   mutate(coicop = factor(coicop, levels = c(one_to_twelve), labels = CPO_names)) %>%
   arrange(growth_total) %>%
   group_by(geo)
 
 # Create a tibble for a few interesting countries in the analysis. I am sticking with the ones I chose last time
-inflation_highlight_letters <- tibble(geo = c("AT", "DE", "MT", "HU", "PL"), color = c("B", "D", "C", "E", "A"), names = c("Austria", "Niemcy", "Malta", "Węgry", "Polska")) %>%
+inflation_highlight_letters <- tibble(geo = c("AT", "DE", "MT", "HU", "PL"), color = c("B", "D", "C", "E", "A"), names = c("Austria", "Germany", "Malta", "Hungary", "Poland")) %>%
   arrange(geo)
 
 # Add countries letters to countries data
@@ -148,7 +150,7 @@ inflation %>%
   geom_col(data = inflation_highlight, aes(x = names, y = growth_total, fill = color)) +
   geom_hline(aes(yintercept = 0), color = "black", size = 0.5) +
   scale_fill_manual(values = palette, name = NULL) +
-  labs(x = NULL, y = NULL, title = "Wzrost cen w % wg kategorii coicop eurostatu", caption = "Źródło: Eurostat") +
+  labs(x = NULL, y = NULL, title = "Price increase in % by eurostat coicop category", caption = "Source: Eurostat") +
   scale_y_continuous(expand = c(0,0.2)) +
   facet_wrap(~ coicop, ncol = 1) +
   theme(axis.text = element_text(color = "black", size = 8),
@@ -168,12 +170,12 @@ ggsave("Plots/Inflation components.png", dpi = 900, width = 30, height = 30, uni
 
 ## Inflation function charts
 
-inflation_chart(language_output = "pl")
+inflation_chart(language_output = "en")
 
 # For the plot with all regions height = 50 and width = 40 cm dimensions are recommended.
 ggsave("Plots/Inflation in all countries.png", dpi = 900, height = 50, width = 40, units = "cm")
 
 
-inflation_chart(region = c("Austria", "Malta", "Germany", "Poland", "Hungary"), language_output = "pl")
+inflation_chart(region = c("Austria", "Malta", "Germany", "Poland", "Hungary"), language_output = "en")
 
 ggsave("Plots/Inflation in selected countries.png", dpi = 900, height = 15, width = 25, units = "cm")

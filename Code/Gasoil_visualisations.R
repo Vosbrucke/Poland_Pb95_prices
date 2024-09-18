@@ -44,12 +44,12 @@ data %>% filter(Date > as.Date("2020-01-01")) %>%
                expand = c(0, 0)) +
   scale_color_manual(name = NULL, 
                      values = c("#666666", palette), 
-                     labels = c("Cena modelowa", "Cena detaliczna", "Cena hurtowa", "Podatek emisyjny", "VAT", "Opłata paliwowa", "Akcyza", "Marża stacji")) +
+                     labels = c("Model price", "Retail price", "Wholesale price", "Emission tax", "VAT", "Fuel fee", "Excise", "Station's overhead")) +
   theme_classic() +
   labs(x = NULL, y = NULL, 
-       title = "Ceny poszczególnych czynników wchodzących w skład ceny detalicznej paliwa Pb95", 
-       subtitle = "Cena modelowa stanowi sumę cen czynników cenotwórczych dla paliwa Pb95",
-       caption = "Źródło: Bankier, Lotos") +
+       title = "Prices of individual factors included in the retail price of Pb95", 
+       subtitle = "The model price is the sum of the prices of the price-forming factors for Pb95",
+       caption = "Source: Bankier, Lotos") +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
         plot.title = element_markdown(face = "bold"),
@@ -87,14 +87,14 @@ data_growth_last_line <- bind_rows(data_growth_last, data_growth_last %>%
 # Plot
 data_growth %>% 
   ggplot(aes(x = Date)) +
-  geom_line(data = data_growth_last_line, aes(y = last_price_hurt, color = "Cena hurtowa"), size = 0.3) +
-  geom_text(data = data_growth_last_line, aes(x = Date[1] + days(18), y = last_price_hurt, label = "Cena hurtowa", color = "Cena hurtowa"), size = 3, hjust = 0) +
-  geom_line(data = data_growth_last_line, aes(y = last_brentPLN, color = "Brent Oil w PLN"), size = 0.3) +
-  geom_text(data = data_growth_last_line, aes(x = Date[1] + days(18), y = last_brentPLN, label = "Brent Oil w PLN", color = "Brent Oil w PLN"), size = 3, hjust = 0) +
-  geom_line(aes(y = last_price_hurt, color = "Cena hurtowa"), size = 0.75) +
-  geom_line(aes(y = last_brentPLN, color = "Brent Oil w PLN"), size = 0.75) +
-  geom_point(data = data_growth_last, mapping = aes(y = last_price_hurt, color = "Cena hurtowa"), size = 1, shape = 21, fill = "white", stroke = 1) +
-  geom_point(data = data_growth_last, mapping = aes(y = last_brentPLN, color = "Brent Oil w PLN"), size = 1, shape = 21, fill = "white", stroke = 1) +
+  geom_line(data = data_growth_last_line, aes(y = last_price_hurt, color = "Wholesale Price"), size = 0.3) +
+  geom_text(data = data_growth_last_line, aes(x = Date[1] + days(18), y = last_price_hurt, label = "Wholesale Price", color = "Wholesale Price"), size = 3, hjust = 0) +
+  geom_line(data = data_growth_last_line, aes(y = last_brentPLN, color = "Brent Crude Oil in PLN"), size = 0.3) +
+  geom_text(data = data_growth_last_line, aes(x = Date[1] + days(18), y = last_brentPLN, label = "Brent Crude Oil in PLN", color = "Brent Crude Oil in PLN"), size = 3, hjust = 0) +
+  geom_line(aes(y = last_price_hurt, color = "Wholesale Price"), size = 0.75) +
+  geom_line(aes(y = last_brentPLN, color = "Brent Crude Oil in PLN"), size = 0.75) +
+  geom_point(data = data_growth_last, mapping = aes(y = last_price_hurt, color = "Wholesale Price"), size = 1, shape = 21, fill = "white", stroke = 1) +
+  geom_point(data = data_growth_last, mapping = aes(y = last_brentPLN, color = "Brent Crude Oil in PLN"), size = 1, shape = 21, fill = "white", stroke = 1) +
   scale_x_date(breaks = seq.Date(from = floor_date(min(data_growth$Date), "month"), to = ceiling_date(max(data_growth$Date), "month"), "3 months"), 
                date_labels = "%b %y",
                minor_breaks = seq.Date(from = floor_date(min(data_growth$Date), "month"), to = ceiling_date(max(data_growth$Date) + months(2), "month"), "month"), 
@@ -102,11 +102,11 @@ data_growth %>%
                limits = c(floor_date(min(data_growth$Date), "month"), ceiling_date(max(data_growth$Date) + months(2), "month")),
                expand = c(0, 0)
   ) +
-  scale_color_manual(name = NULL, values = c("Cena hurtowa" = palette[1], "Brent Oil w PLN" = "#E4B80E")) +
+  scale_color_manual(name = NULL, values = c("Wholesale Price" = palette[1], "Brent Crude Oil in PLN" = "#E4B80E")) +
   labs(x = NULL, y = NULL, 
-       title = 'Cena w hurcie "oderwała" się od notowań Brent Oil wyrażonych w PLN', 
-       subtitle = "100 = poziom cen w dniu 01.01.2022",
-       caption = "Źródło: EIA, Lotos, Stooq") +
+       title = 'The wholesale price has "broken away" from Brent Oil quotes expressed in PLN', 
+       subtitle = "100 = price level on 01/01/2022",
+       caption = "Source: EIA, Lotos, Stooq") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -130,7 +130,7 @@ share_data <- data %>%
   select(Date, price_hurt, excise, VAT, store_margin, emission_tax, fuel_surcharge)
 
 # Make a pivot table
-share_data  <- share_data %>% pivot_longer(cols = -Date, values_to = "price") %>% mutate(name = (factor(name, levels = c("price_hurt", "excise", "VAT", "store_margin", "fuel_surcharge", "emission_tax"))))
+share_data  <- share_data %>% pivot_longer(cols = -Date, values_to = "price") %>% mutate(name = (factor(name, levels = "wholesale price", "excise", "VAT", "gas station's overhead", "fuel fee", "emission tax")))
 
 # Create a color palette
 palette <- wesanderson::wes_palette("Zissou1", 6, type = "continuous")
@@ -145,7 +145,11 @@ index <- which(share_data$Date == min(share_data$Date))
 share_data$Date[index] <- floor_date(share_data$Date[index], unit = "month")
 
 # Plot
+old_names <- names(share_data)
+new_names <- c("Date", "wholesale price", "excise", "VAT", "gas station's overhead", "fuel fee", "emission tax")
+data.table::setnames(share_data, old_names, new_names)
 share_data %>%
+  pivot_longer(cols = -Date, values_to = "price") %>%
   ggplot(aes(fill = name, x = Date, y = price)) + 
   geom_bar(position = "fill", stat = "identity", width = 15) +
   geom_vline(xintercept = as.Date("2022-02-03"), color = "black") +
@@ -159,19 +163,19 @@ share_data %>%
              inherit.aes = FALSE, color = "black") +
   # Add text to the line. The text was added using ggannotate package
   geom_text(data = data.frame(x = as.Date("2021-09-28"),
-                              y = 0.818102479707454, label = "Obniżka VAT na paliwo \n z 23% do 8%"),
+                              y = 0.818102479707454, label = "VAT reduction on fuel\nfrom 23% to 8%"),
             mapping = aes(x = x, y = y, label = label),
             inherit.aes = FALSE, color = "black") +
   scale_fill_manual(values = palette, 
-                    labels = c("cena hurtowa", "akcyza", "VAT", "marża stacji", "opłata paliwowa", "podatek emisyjny"), 
+                    labels = c("wholesale price", "excise", "VAT", "gas station's overhead", "fuel fee", "emission tax"), 
                     name = NULL) +
   scale_x_date(date_breaks = "6 months", 
                date_labels = "%b %y", 
                limits = c(floor_date(min(share_data$Date), "month"), max(share_data$Date))) + 
-  coord_cartesian(expand = c(0,0)) +
+  coord_cartesian(expand = 0) +
   labs(y = NULL, x = NULL, 
-       title = "Procentowy udział poszczególnych czynników cenotwórczych paliwa Pb95 w Polsce od 2020 r.",
-       caption = "Źródło: Bankier, e-Petrol, Lotos") +
+       title = "Percentage share of individual price drivers for Pb95 fuel in Poland from 2020",
+       caption = "Source: Bankier, e-Petrol, Lotos") +
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -202,7 +206,7 @@ p1 <- data %>%
   ggplot(aes(x = Date, y = brentPLN)) + 
   geom_line() +
   labs(x = NULL, y = NULL) +
-  ggtitle("Ropa brent w PLN w latach 2005-2022") +
+  ggtitle("Brent Crude Oil in PLN 2005-2022") +
   scale_y_continuous(breaks = seq(0,600, 150), 
                      limits = c(0,650), 
                      expand = c(0,0)) +
@@ -224,8 +228,8 @@ p2 <- data %>%
   ggplot(aes(x = year, y = brentPLN, group = year)) + 
   geom_boxplot() +
   labs(x = NULL, y = NULL,
-       cation = "Źródło: EIA, stooq") +
-  ggtitle("Ropa brent w PLN w latach 2005-2022") +
+       cation = "Source: EIA, stooq") +
+  ggtitle("Brent Crude Oil in PLN 2005-2022") +
   scale_y_continuous(breaks = seq(0,600, 150), 
                      limits = c(0,650), 
                      expand = c(0,0)) +
@@ -255,8 +259,8 @@ data %>%
   geom_line() +
   geom_point(mapping = aes(y = median), shape = 22, color = USD_color, fill = "white", size = 2, stroke = 1) +
   labs(x = NULL, y = NULL,
-       caption = "Źródło: EIA, stooq") +
-  ggtitle("Rozstęp i <span style='color:#9EBE91;'>mediana</span> ropy brent w PLN w latach 2005-2022") +
+       caption = "Source: EIA, stooq") +
+  ggtitle("Range and <span style='color:#9EBE91;'>median</span> of Brent crude oil in PLN in 2005-2022") +
   scale_y_continuous(breaks = seq(0,600, 150), 
                      limits = c(0,650), 
                      expand = c(0,0)) +
@@ -292,8 +296,8 @@ data %>%
   geom_line(color = PLN_color, size = 0.75) +
   geom_point(shape = 21, size = 1.5, stroke = 1, fill = "white", color = PLN_color) +
   labs(x = NULL, y = NULL,
-       caption = "Źródło: EIA, stooq") +
-  ggtitle("Zakres notowań ropy brent w PLN w latach 2005-2022") +
+       caption = "Source: EIA, stooq") +
+  ggtitle("Candlestick chart for Brent crude oil prices in PLN 2005-2022") +
   scale_y_continuous(breaks = seq(0,300, 50), 
                      limits = c(0,260), 
                      expand = c(0,0)) +
@@ -334,8 +338,8 @@ data %>%
   geom_segment(data = data_open_close, aes(x = year, xend = year, y = open, yend = close, color = color), size = 2) +
   scale_color_manual(values = c("#DF484C", "#449682")) +
   labs(x = NULL, y = NULL,
-       caption = "Źródło: EIA, stooq") +
-  ggtitle("Wykres świecowy dla cen ropy brent w PLN w latach 2005-2022") +
+       caption = "Source: EIA, stooq") +
+  ggtitle("Candlestick chart for Brent crude oil prices in PLN 2005-2022") +
   scale_y_continuous(breaks = seq(0,600, 150), 
                      limits = c(0,650), 
                      expand = c(0,0)) +
@@ -364,7 +368,7 @@ p1 <- data %>%
   ggplot(aes(x = Date, y = brent)) + 
   geom_line() +
   labs(x = NULL, y = NULL) +
-  ggtitle("Ropa brent w USD w latach 2005-2022") +
+  ggtitle("Brent Crude Oil Market Price in USD 2005-2022") +
   scale_y_continuous(breaks = seq(0,150, 25), 
                      limits = c(0,165), 
                      expand = c(0,0)) +
@@ -386,8 +390,8 @@ p2 <- data %>%
   ggplot(aes(x = year, y = brent, group = year)) + 
   geom_boxplot() +
   labs(x = NULL, y = NULL,
-       caption = "Źródło: EIA, stooq") +
-  ggtitle("Ropa brent USD w latach 2005-2022") +
+       caption = "Source: EIA, stooq") +
+  ggtitle("Brent Crude Oil Market Price in USD 2005-2022") +
   scale_y_continuous(breaks = seq(0,150, 25), 
                      limits = c(0,165), 
                      expand = c(0,0)) +
@@ -418,8 +422,8 @@ data %>%
   geom_line() +
   geom_point(mapping = aes(y = median), shape = 22, color = USD_color, fill = "white", size = 2, stroke = 1) +
   labs(x = NULL, y = NULL,
-       caption = "Źródło: EIA, stooq") +
-  ggtitle("Rozstęp i <span style='color:#9EBE91;'>mediana</span> ropy brent w USD w latach 2005-2022") +
+       caption = "Source: EIA, stooq") +
+  ggtitle("Range and <span style='color:#9EBE91;'>median</span> of Brent crude oil in USD, 2005-2022") +
   scale_y_continuous(breaks = seq(0,150, 25), 
                      limits = c(0,149), 
                      expand = c(0,0)) +
@@ -452,8 +456,8 @@ data %>%
   geom_line(color = USD_color) +
   geom_point(shape = 21, size = 2, stroke = 1, fill = "white", color = USD_color) +
   labs(x = NULL, y = NULL,
-       caption = "Źródło: EIA, stooq") +
-  ggtitle("Zakres notowań ropy brent w USD w latach 2005-2022") +
+       caption = "Source: EIA, stooq") +
+  ggtitle("Brent Crude Oil Market Price Range in USD 2005-2022") +
   scale_y_continuous(breaks = seq(0,110, 20), 
                      limits = c(0,110), 
                      expand = c(0,0)) +
@@ -495,8 +499,8 @@ data %>%
   geom_segment(data = data_open_close, aes(x = year, xend = year, y = open, yend = close, color = color), size = 2) +
   scale_color_manual(values = c("#DF484C", "#449682")) +
   labs(x = NULL, y = NULL,
-       caption = "Źródło: EIA, stooq") +
-  ggtitle("Wykres świecowy dla cen ropy brent w USD w latach 2005-2022") +
+       caption = "Source: EIA, stooq") +
+  ggtitle("Candlestick chart for Brent crude oil prices in USD 2005-2022") +
   scale_y_continuous(breaks = seq(0,150, 25), 
                      limits = c(0,160), 
                      expand = c(0,0)) +
@@ -528,9 +532,9 @@ p <- data %>%
   geom_line(aes(y = brent_rel, color = "Brent USD")) +
   geom_line(aes(y = brentPLN_rel, color = "Brent PLN")) +
   labs(x = NULL, y = NULL, 
-       subtitle = "100 = poziom ceny 1 stycznia 2005 roku",
-       caption = "Źródło: EIA, stooq") +
-  ggtitle("Relatywny wzrost ropy brent w USD i PLN od 2005 roku")
+       subtitle = "100 = price level on January 1, 2005",
+       caption = "Source: EIA, stooq") +
+  ggtitle("Relative growth of Brent crude oil in USD and PLN since 2005")
 
 # Making a plot more pretty
 p <- p +
@@ -583,13 +587,18 @@ p <- p +
              curvature = 0.2, arrow = arrow(30L, unit(0.05, "inches"),
                                             "last", "closed"),
              size = 0.4, inherit.aes = FALSE) + 
-  geom_text(data = data.frame(x = as.Date("2006-04-14"),
-                              y = 358.982821377058, label = "Od początku 2006 r. do połowy 2008 r. \n cena za baryłkę ropy naftowej w USD \n wzrosła 2.5-krotnie. Spadek nastąpił \n na początku kryzysu finansowego z 2008 r."),
-            mapping = aes(x = x, y = y, label = label),
-            size = 2, inherit.aes = FALSE) + 
+  geom_text(
+    data = data.frame(
+      x = as.Date("2006-04-14"),
+      y = 358.982821377058,
+      label = "From early 2006 to mid-2008\nthe price of a barrel of oil in USD\nincreased 2.5 times. The decline occurred\nat the beginning of the 2008 financial crisis."
+    ),
+  mapping = aes(x = x, y = y, label = label),
+  size = 2, inherit.aes = FALSE
+  ) +
   geom_text(data = data.frame(x = as.Date(c("2017-10-19", "2007-11-07" )),
                               y = c(331.821217158577, 58.0651240508935),
-                              label = c("Wojna na Ukranie, wysoka inflacja, pierwsze \n oznaki spowolnienia gospodarczego \n doprowadziły do deprecjacji PLN w stosunku do USD \n i tym silniejszego wzrostu ceny za baryłkę ropy", "Złotówka w czasach sprzed kryzysu finansowego \n aprecjonowała względem dolara amerykańskiego \n przez co światowy wzrost baryłki ropy nie był aż \n tak silnie w Polsce odczuwany" )),
+                              label = c("The war in Ukraine, high inflation, the first \n signs of economic slowdown \n led to the depreciation of the PLN against the USD \n and an even stronger increase in the price of a barrel of oil", "The złoty in the times before the financial crisis \n appreciated against the US dollar \n which is why the global increase in the price of a barrel of oil was not \n felt so strongly in Poland" )),
             mapping = aes(x = x, y = y, label = label),
             size = 2, inherit.aes = FALSE) +
   geom_curve(data = data.frame(x = as.Date(c(max(data$Date), max(data$Date))),
@@ -600,7 +609,7 @@ p <- p +
              color = c(USD_color, PLN_color), size = 0.2, inherit.aes = FALSE) +
   geom_text(data = data.frame(x = as.Date(c(max(data$Date) + days(150), max(data$Date) + days(150))),
                               y = c(brent_fl, brentPLN_fl),
-                              label = c(glue("Brent USD\n\n{direction} {round(brent_fl)}%\n42 → {round(first(data$brent))} USD", direction = ifelse(brent_fl >= 0, "wzrost o", "spadek o")), glue("Brent PLN\n\n{direction} {round(brentPLN_fl)}%\n130 → {round(first(data$brentPLN))} PLN", direction = ifelse(brentPLN_fl >= 0, "wzrost o", "spadek o")))),
+                              label = c(glue("Brent USD\n\n{direction} {round(brent_fl)}%\n42 → {round(first(data$brent))} USD", direction = ifelse(brent_fl >= 0, " increase by", "decrease by")), glue("Brent PLN\n\n{direction} {round(brentPLN_fl)}%\n130 → {round(first(data$brentPLN))} PLN", direction = ifelse (brentPLN_fl >= 0, "increase by", "decrease by")))),
             mapping = aes(x = x, y = y, label = label),
             color = c(USD_color, PLN_color), size = 2, inherit.aes = FALSE, hjust = 0, vjust = 0.77)
 
@@ -632,7 +641,7 @@ palette <- wesanderson::wes_palette("Darjeeling1", n = 5, type = "continuous")
 # Make a tibble to use in correct order as colors on the plot 
 countries_letters <- tibble(code = c("AT", "DE", "MT", "HU", "PL"), 
                             color = c("B", "D", "C", "E", "A"), 
-                            names = c("Austria", "Niemcy", "Malta", "Węgry", "Polska")) %>% 
+                            names = c("Austria", "Germany", "Malta", "Hungary", "Poland")) %>% 
   arrange(code)
 
 # Join two data frames and keep only selected countries
@@ -679,8 +688,8 @@ fuel_price_EU %>%
   scale_y_continuous(breaks = seq(0, 2.5, 0.5), 
                      labels = paste0(seq(0, 2.5, 0.5), "€")) +
   labs(x = NULL, y = NULL, 
-       title = paste("Cena Pb95 wśród członków UE na dzień", format(max(fuel_price_EU$date), "%d %B %Y")), 
-       caption = "Źródło: Oil Bulletin. European Commission, 2022") + 
+       title = paste("Pb95 price among EU Member States on", format(max(fuel_price_EU$date), "%d %B %Y")), 
+       caption = "Source: Oil Bulletin. European Commission, 2022") + 
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -724,7 +733,7 @@ countries <- data_y_to_y %>%
 # too similar colors and it would be hard to distinguish them. 
 countries_letters <- tibble(code = c("AT", "DE", "MT", "HU", "PL"), 
                             color = c("B", "D", "C", "E", "A"), 
-                            names = c("Austria", "Niemcy", "Malta", "Węgry", "Polska")) %>%
+                            names = c("Austria", "Germany", "Malta", "Hungary", "Poland")) %>%
   arrange(code)
 
 # Add countries letters to countries data
@@ -761,9 +770,9 @@ ggplot(data_y_to_y, aes(x = date, y = growth, group = code)) +
                date_labels = "%b %y", 
                minor_breaks = seq.Date(floor_date(as.Date(min(data_y_to_y$date)), unit = "month"), ceiling_date(as.Date(max(data_y_to_y$date)) + months(1), unit = "month") + days(1), by = "1 month"), 
                guide = "axis_minor") +
-  labs(x = NULL, y = NULL, 
-       title = paste("Wzrost cen paliwa Pb95 wśród członków UE od", format(as.Date(min(data_y_to_y$date)), "%d %B %Y"), "do", format(as.Date(max(data_y_to_y$date)), "%d %B %Y")),
-       caption = "Źródło: Oil Bulletin. European Commission, 2022") + 
+  labs(x = NULL, y = NULL,
+       title = paste("Growth of Pb95 price among EU Member States from", format(as.Date(min(data_y_to_y$date)), "%d %B %Y"), "until", format(as.Date(max(data_y_to_y$date)), "%d %B %Y")),
+       caption = "Source: Oil Bulletin. European Commission, 2022") + 
   scale_y_continuous(labels = paste0(seq(0,60,20), "%"), 
                      breaks = seq(0,60,20)) +
   theme_classic() +

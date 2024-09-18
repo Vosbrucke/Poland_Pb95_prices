@@ -109,6 +109,7 @@ inflation_chart <- function(rate_of_change = "annual", region = "All", block_reg
     labels_color <- c("Services", "Non-energy industrial goods",
                       "Energy", "Food including alcohol and tobacco")
     labels_line <- c("HCPI-inflation", "Core inflation (w/o energy, food)")
+    title <- paste("Share of individual factors in", ifelse(rate_of_change == "annual", "annual", "monthly"), "inflation")
     caption <- "Source: Eurostat\nCC BY"
   }
   

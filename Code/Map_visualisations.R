@@ -24,10 +24,10 @@ data <- get_eurostat("prc_hicp_manr", filters = list(coicop = "CP07222", lastTim
   rename(values_x = values) %>%
   filter(!geo %in% c("MT", "TR"))
 
-legend <- "Zmiana wydatków w %"
-title <- "Roczna zmiana wydatków na benzynę w Europie"
-subtitle <- "Zmiana mierzona inflacją w kategorii coicop petrol, sierpień 2022"
-caption <- "Źródło: Eurostat"
+legend <- "Change in % of expenditure"
+title <- "Annual change in petrol expenditure in Europe"
+subtitle <- "Change in inflation in the coicop petrol category, August 2022"
+caption <- "Source: Eurostat"
 
 univariate_map_eu(data = data, legend = legend, title = title, subtitle = subtitle, caption = caption)
 
@@ -42,10 +42,10 @@ data <- fuel_price_EU %>%
   dplyr::filter(row_number() == 52) %>%
   dplyr::rename(values_x = Euro_super_95, geo = code)
 
-title <- "Cena benzyny w Europie"
-subtitle <- paste("Średnia tygodniowa cena benzyny Pb95 na dzień", format(as.Date(data$date %>% unique()), "%d %B %Y"))
-legend <- "Średnia cena w €"
-caption <- "Źródło: Eurostat"
+title <- "Petrol price in Europe"
+subtitle <- paste("Weekly average price of Pb95 petrol per day", format(as.Date(data$date %>% unique()), "%d %B %Y"))
+legend <- "Average price in €"
+caption <- "Source: Eurostat"
 
 univariate_map_eu(data = data[, c(1,3)], title = title, subtitle = subtitle, legend = legend, caption = caption)
 
@@ -60,10 +60,10 @@ data <- fuel_price_EU %>%
   dplyr::filter(row_number() == 1) %>%
   dplyr::rename(values_x = Euro_super_95, geo = code)
 
-title <- "Ceny benzyny w Europie"
-subtitle <- paste("Średnia tygodniowa cena beznyny Pb95 na dzień", format(as.Date(data$date %>% unique()), "%d %B %Y"))
-legend <- "Średnia cena w €"
-caption <- "Źródło: Eurostat"
+title <- "Petrol prices in Europe"
+subtitle <- paste("Average weekly price of petrol Pb95 per day", format(as.Date(data$date %>% unique()), "%d %B %Y"))
+legend <- "Average price in €"
+caption <- "Source: Eurostat"
 
 univariate_map_eu(data = data[, c(1,3)], title = title, subtitle = subtitle, legend = legend, caption = caption)
 
@@ -78,10 +78,10 @@ data <- get_eurostat("prc_hicp_manr", filters = list(coicop = "CP00")) %>%
   drop_na() %>% 
   select(geo, values_x)
 
-title <- "Inflacja HICP w Europie (sierpień 2022 r.)"
+title <- "HICP inflation in Europe (August 2022)"
 subtitle <- ""
-legend <- "Inflacja w %"
-caption <- "Źródło: Eurostat"
+legend <- "Inflation in %"
+caption <- "Source: Eurostat"
 
 univariate_map_eu(data = data, title = title, subtitle = subtitle, legend = legend, caption = caption)
 
@@ -137,7 +137,7 @@ inflation <- joined_inflation %>%
   select(geo, perc_of_inflation) %>% 
   rename(values_x = perc_of_inflation)
 
-univariate_map_eu(data = inflation, subtitle = "", title = "Wpływ wzrostu cen energii i żywności r/r na wielkość inflacji HICP, lipiec 2022 r.", legend = "Udział w %", caption = "Źródło: Eurostat")
+univariate_map_eu(data = inflation, subtitle = "", title = "The impact of year-on-year growth in energy and food prices on HICP inflation, July 2022", legend = "Share in %", caption = "Source: Eurostat")
 
 ggsave("Plots/Share of YoY increase in energy and food prices on HICP inflation.png", dpi = 900, height = 15, width = 22, units = "cm")
 
@@ -164,10 +164,10 @@ data_y <- data_y %>%
   mutate(values_y = (values_x - values_y) / values_x * 100) %>% 
   select(-values_x)
 
-legend_x <- "niższa → wyższa\ninflacja"
-legend_y <- "Udział surowców\nenergetycznych w inflacji\nniższy → wyższy"
-title = "Poziom inflacji i udział wzrostów cen energetycznych w Europie"
-caption <- "Źródło: Eurostat"
+legend_x <- "lower → higher\ninflation"
+legend_y <- "Share of energy resources in inflation\nlower → higher"
+title <- "Inflation level and share of energy price increases in Europe"
+caption <- "Source: Eurostat"
 
 bivariate_map_eu(data_x = data_x, data_y = data_y, title = title, legend_x = legend_x, legend_y = legend_y, caption = caption, annotation = FALSE)
 
@@ -199,7 +199,7 @@ inflation <- inflation %>%
          !is.na(values)) %>%
   # Last formatting for graph
   mutate(line = factor(coicop, levels = c("CP00", "TOT_X_NRG_FOOD"),
-                       labels = c("Inflacja HICP", "Inflacja bazowa (z wyłączeniem energii i żywności)")))
+                       labels = c("HICP Inflation", "Core Inflation (excluding energy and food)")))
 
 # Make a data frame for inflation
 data_x <- inflation %>%
@@ -213,10 +213,10 @@ data_y <- inflation %>%
   select(geo, values) %>% 
   rename(values_y = values)
 
-legend_x <- "niższa → wyższa\ninflacja"
-legend_y <- "inflacja bazowa\nniższa → wyższa"
-title = "Poziom inflacji i inflacji bazowej (z wyłączeniem energii i żywności) w Europie"
-caption <- "Źródło: Eurostat"
+legend_x <- "lower → higher\ninflation"
+legend_y <- "core inflation\nlower → higher"
+title = "Inflation and core inflation (excluding energy and food) in Europe"
+caption <- "Source: Eurostat"
 
 bivariate_map_eu(data_x = data_x, data_y = data_y, legend_x = legend_x, legend_y = legend_y, title = title, caption = caption)
 
@@ -239,10 +239,10 @@ data_y <- get_eurostat("sdg_10_10", filters = list(na_item = "EXP_PPS_EU27_2020_
 data_x <- data_x %>% 
   semi_join(data_y["geo"], by = "geo")
 
-legend_x <- "niższa → wyższa\ninflacja"
-legend_y <- "PKB per capita skorygowany\nsiłą nabywczą\nniższe → wyższe"
-title <- "Poziom inflacji i PKB per capita skorygowany siłą nabywczą w Europie"
-caption <- "Źródło: Eurostat"
+legend_x <- "lower → higher\ninflation"
+legend_y <- "Purchasing power adjusted GDP per capita\nlower → higher"
+title <- "Inflation level and purchasing power adjusted GDP per capita in Europe"
+caption <- "Source: Eurostat"
 
 bivariate_map_eu(data_x = data_x, data_y = data_y, legend_x = legend_x, legend_y = legend_y, title = title, caption = caption)
 
