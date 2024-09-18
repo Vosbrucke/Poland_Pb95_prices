@@ -116,7 +116,7 @@ The correlation of the extent of price increases with the share of energy price 
 The next map shows inflation compared to core inflation. Thus, it can be concluded that high inflation in CEE countries is also due to the spillover of energy price increases to consumer products and/or services. High core inflation is more difficult to slow down and may remain relatively stable in the medium term. Countries in the east of the EU may therefore experience a longer period of price increases.
 
 <p align="center">
-<img src="https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Inflation%20and%20base%20inflation%20in%20Europe.png`" width="550">
+<img src="https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Inflation%20and%20base%20inflation%20in%20Europe.png" width="550">
 </p>
 
 This time, the map shows the relationship between inflation and GDP per capita adjusted for purchasing power. Again, the clustering of countries is visible. Countries in red belong to the group with high inflation and lower GDP per capita. These countries are particularly affected by inflation.
