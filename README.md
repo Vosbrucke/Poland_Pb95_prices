@@ -9,7 +9,7 @@ Price of gasoil is an aggregate of a number of different factors contribuing to 
 ## Introduction
 
 The price of fuel observed at gas stations depends on a number of different factors. Recent years have been characterized by significant fluctuations on the global market, which is reflected in fuel prices. The first problems were caused by the COVID-19 pandemic - restrictions on trade, movement, quarantines. However, the specter of recession was quickly eliminated by the decisive response of most governments and central banks around the world. However, the economic recovery caused by expansionary economic policy soon led to further shocks. Producers trying to keep up with demand increased their production capacity, contributing to the increase in demand for crude oil. Already in February 2021, the price of oil returned to pre-pandemic levels, reaching USD 60 per barrel. In the following months, the increase continued due to problems in increasing the supply of oil. Restarting oil wells shut down at the beginning of the pandemic turned out to be a long and expensive process. It was not until mid-2022 that oil production almost reached the pre-pandemic level, reaching 98.8 million barrels per day.
-([źródło](https://www.eia.gov/outlooks/steo/report/global_oil.php)).
+([source](https://www.eia.gov/outlooks/steo/report/global_oil.php)).
 
 <p align="center">
 <img src="https://github.com/Vosbrucke/Poland_Pb95_prices/blob/main/Plots/Range%20and%20median%20in%20PLN.png" width="550">
